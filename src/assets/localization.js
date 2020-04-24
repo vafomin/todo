@@ -6,11 +6,13 @@ export const messages = {
         buttons: {
             add: "Добавить",
             done: "Выполнено",
-            delete: "Удалить"
+            delete: "Удалить",
+            restore: "Восстановить"
         },
-        googleBtn: "Войти с помощью Google",
-        profile: "Профиль",
-        hello: "Привет",
+        tabs: {
+            tasks: "Задания",
+            done: "Выполненные"
+        },
         notFound: "Страница не найдена",
     },
     en: {
@@ -20,11 +22,13 @@ export const messages = {
         buttons: {
             add: "Add",
             done: "Done",
-            delete: "Delete"
+            delete: "Delete",
+            restore: "Restore"
         },
-        googleBtn: "Sign in with Google",
-        profile: "Profile",
-        hello: "Hello",
+        tabs: {
+            tasks: "Tasks",
+            done: "Done"
+        },
         notFound: "Page not found",
     }
 };
