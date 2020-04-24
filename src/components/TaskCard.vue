@@ -1,7 +1,7 @@
 <template>
     <v-card
             class="mx-auto my-4"
-            width="40em"
+            width="70vw"
     >
         <v-card-text>
             <p class="headline">{{ task }}</p>
