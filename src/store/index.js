@@ -7,7 +7,8 @@ export default new Vuex.Store({
     state: {
         lang: undefined,
         isAuth: false,
-        profile: ""
+        profile: "",
+        tasks: []
     },
     getters: {
         lang: state => {
@@ -17,7 +18,10 @@ export default new Vuex.Store({
             return state.isAuth;
         },
         profile: state => {
-            return state.profile
+            return state.profile;
+        },
+        tasks: state => {
+            return state.tasks;
         }
     },
     mutations: {
@@ -29,6 +33,9 @@ export default new Vuex.Store({
         },
         setProfile: (state, payload) => {
             state.profile = payload;
+        },
+        setTasks: (state, payload) => {
+            state.tasks.push(payload);
         }
     }
 });

@@ -2,16 +2,19 @@
     <div class="v-container pa-4">
         <v-layout class="text-xs-center" column="column" justify-center="justify-center" align-center="align-center">
             <v-flex xs12="xs12" md10="md10">
-                <div class="headline pb-4">
-                    <h1>{{ $t("home") }}</h1>
-                </div>
-                <p>{{ $t("description") }}</p>
-                <g-signin-button
-                        :params="googleSignInParams"
-                        @success="onSignInSuccess"
-                        @error="onSignInError">
-                    {{ $t("googleBtn") }}
-                </g-signin-button>
+                <v-text-field
+                        v-model="task"
+                        :label="$t('enterTask')"
+                        solo
+                        style="margin-right: 15px; width: 50em"
+                >
+                    <template slot="append">
+                        <v-btn outlined @click="addTask">
+                            {{ $t("buttons.add") }}
+                        </v-btn>
+                    </template>
+                </v-text-field>
+                <TaskCard v-for="task in taskList" :key="task" :task="task"/>
             </v-flex>
         </v-layout>
     </div>
@@ -19,26 +22,26 @@
 
 <script>
     export default {
+        components: {
+            TaskCard: () => import("../components/TaskCard")
+        },
         data() {
             return {
+                task: "",
                 googleSignInParams: {
                     client_id: "901060617777-1nic5bknq28bi7ohhj9k66398hlqtvp4.apps.googleusercontent.com"
                 }
             }
         },
+        computed: {
+            taskList: function () {
+                return this.$store.state.tasks;
+            }
+        },
         methods: {
-            onSignInSuccess(googleUser) {
-                try {
-                    const profile = googleUser.getBasicProfile().getName();
-                    this.$store.commit("setProfile", profile);
-                    this.$store.commit("setIsAuth", true);
-                    this.$router.replace("page");
-                } catch (err) {
-                    console.log(err);
-                }
-            },
-            onSignInError(error) {
-                console.log('OH NOES', error)
+            addTask() {
+                this.$store.commit("setTasks", this.task);
+                this.task = "";
             }
         }
     }
