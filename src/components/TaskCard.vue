@@ -11,7 +11,7 @@
                 <v-icon>mdi-check</v-icon>
                 {{ $t("buttons.done") }}
             </v-btn>
-            <v-btn color="error" outlined>
+            <v-btn color="error" outlined @click="deleteTask">
                 <v-icon>mdi-delete</v-icon>
                 {{ $t("buttons.delete") }}
             </v-btn>
@@ -25,6 +25,12 @@
         name: "TaskCard",
         props: {
             task: String
+        },
+        methods: {
+            deleteTask() {
+                let idx = this.$store.state.tasks.indexOf(this.task);
+                this.$store.state.tasks.splice(idx, 1)
+            }
         }
     }
 </script>
