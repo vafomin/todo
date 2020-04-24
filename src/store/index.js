@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex);
 
@@ -29,6 +30,13 @@ export default new Vuex.Store({
         },
         setDone: (state, payload) => {
             state.done.push(payload);
+        },
+        deleteTask: (state, payload) => {
+            state.tasks.splice(payload, 1);
+        },
+        deleteDone: (state, payload) => {
+            state.done.splice(payload, 1);
         }
-    }
+    },
+    plugins: [createPersistedState()]
 });

@@ -25,7 +25,7 @@
             restoreTask() {
                 this.$store.commit("setTasks", this.task);
                 let idx = this.$store.state.done.indexOf(this.task);
-                this.$store.state.done.splice(idx, 1)
+                this.$store.commit("deleteDone", idx);
             },
         }
     }

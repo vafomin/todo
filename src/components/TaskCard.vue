@@ -30,11 +30,11 @@
             doneTask() {
                 this.$store.commit("setDone", this.task);
                 let idx = this.$store.state.tasks.indexOf(this.task);
-                this.$store.state.tasks.splice(idx, 1)
+                this.$store.commit("deleteTask", idx);
             },
             deleteTask() {
                 let idx = this.$store.state.tasks.indexOf(this.task);
-                this.$store.state.tasks.splice(idx, 1)
+                this.$store.commit("deleteTask", idx);
             }
         }
     }
