@@ -1,19 +1,27 @@
 export const messages = {
     ru: {
-        app: "Приложение",
+        app: "ToDo",
         createdBy: "Создано",
-        home: "Главная",
-        description: "Это стартовый шаблон для разработки приложений на Vue.js.",
+        enterTask: "Введите задание...",
+        buttons: {
+            add: "Добавить",
+            done: "Выполнено",
+            delete: "Удалить"
+        },
         googleBtn: "Войти с помощью Google",
         profile: "Профиль",
         hello: "Привет",
         notFound: "Страница не найдена",
     },
     en: {
-        app: "App",
+        app: "ToDo",
         createdBy: "Created by",
-        home: "Home",
-        description: "This is a starter template for developing applications on Vue.js.",
+        enterTask: "Enter the task...",
+        buttons: {
+            add: "Add",
+            done: "Done",
+            delete: "Delete"
+        },
         googleBtn: "Sign in with Google",
         profile: "Profile",
         hello: "Hello",
