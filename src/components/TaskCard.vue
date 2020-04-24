@@ -7,7 +7,7 @@
             <p class="headline">{{ task }}</p>
         </v-card-text>
         <v-card-actions>
-            <v-btn color="success" outlined>
+            <v-btn color="success" outlined @click="doneTask">
                 <v-icon>mdi-check</v-icon>
                 {{ $t("buttons.done") }}
             </v-btn>
@@ -27,6 +27,11 @@
             task: String
         },
         methods: {
+            doneTask() {
+                this.$store.commit("setDone", this.task);
+                let idx = this.$store.state.tasks.indexOf(this.task);
+                this.$store.state.tasks.splice(idx, 1)
+            },
             deleteTask() {
                 let idx = this.$store.state.tasks.indexOf(this.task);
                 this.$store.state.tasks.splice(idx, 1)

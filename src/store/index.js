@@ -8,7 +8,8 @@ export default new Vuex.Store({
         lang: undefined,
         isAuth: false,
         profile: "",
-        tasks: []
+        tasks: [],
+        done: []
     },
     getters: {
         lang: state => {
@@ -22,6 +23,9 @@ export default new Vuex.Store({
         },
         tasks: state => {
             return state.tasks;
+        },
+        done: state => {
+            return state.done;
         }
     },
     mutations: {
@@ -36,6 +40,9 @@ export default new Vuex.Store({
         },
         setTasks: (state, payload) => {
             state.tasks.push(payload);
+        },
+        setDone: (state, payload) => {
+            state.done.push(payload);
         }
     }
 });
