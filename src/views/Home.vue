@@ -22,7 +22,8 @@
                                     </template>
                                 </v-text-field>
                             </v-form>
-                            <draggable v-model="taskList" :animation="200">
+                            <p class="headline text-center" v-if="taskList.length === 0">{{ $t("noTask") }}</p>
+                            <draggable v-else :list="taskList" :animation="200">
                                 <TaskCard v-for="task in taskList" :key="task" :task="task"/>
                             </draggable>
                         </div>

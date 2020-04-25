@@ -3,6 +3,7 @@ export const messages = {
         app: "ToDo",
         createdBy: "Создано",
         enterTask: "Введите задание...",
+        noTask: "Похоже у вас еще нет задач...",
         buttons: {
             add: "Добавить",
             done: "Выполнено",
@@ -23,6 +24,7 @@ export const messages = {
         app: "ToDo",
         createdBy: "Created by",
         enterTask: "Enter the task...",
+        noTask: "Looks like you don't have the tasks yet...",
         buttons: {
             add: "Add",
             done: "Done",
