@@ -13,6 +13,10 @@ export const messages = {
             tasks: "Задания",
             done: "Выполненные"
         },
+        about: {
+            title: "Что такое ToDo?",
+            body: "ToDo - простой список задач. Это Open-Source проект, исходники можно найти на GitHub"
+        },
         notFound: "Страница не найдена",
     },
     en: {
@@ -28,6 +32,10 @@ export const messages = {
         tabs: {
             tasks: "Tasks",
             done: "Done"
+        },
+        about: {
+            title: "What is ToDo?",
+            body: "ToDo is a simple list of tasks. This is an Open-Source project, the sources can be found at GitHub."
         },
         notFound: "Page not found",
     }

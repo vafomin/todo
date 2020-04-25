@@ -23,6 +23,9 @@
                     </v-list-item>
                 </v-list>
             </v-menu>
+            <v-btn icon @click.stop="dialog = true">
+                <v-icon>mdi-help</v-icon>
+            </v-btn>
         </v-app-bar>
         <v-content>
             <v-container fluid>
@@ -32,6 +35,13 @@
         <v-footer app>
             <span>{{ $t("createdBy") }} <a href="https://enotcode.com" target="_blank">enotcode</a></span>
         </v-footer>
+
+        <v-dialog v-model="dialog" max-width="400">
+            <v-card>
+                <v-card-title class="headline">{{ $t("about.title") }}</v-card-title>
+                <v-card-text>{{ $t("about.body") }}</v-card-text>
+            </v-card>
+        </v-dialog>
     </v-app>
 </template>
 
@@ -53,6 +63,11 @@
                 } else {
                     return "🇺🇸"
                 }
+            }
+        },
+        data() {
+            return {
+                dialog: false
             }
         },
         mounted: function () {
