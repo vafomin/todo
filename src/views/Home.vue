@@ -6,29 +6,32 @@
                     <v-tab>{{ $t("tabs.tasks") }}</v-tab>
                     <v-tab :disabled="disabled">{{ $t("tabs.done") }}</v-tab>
                 </v-tabs>
-
                 <v-tabs-items v-model="tab">
                     <v-tab-item>
                         <div class="tab-item-wrapper">
-                            <v-text-field
-                                    v-model="task"
-                                    :label="$t('enterTask')"
-                                    solo
-                                    style="margin: 15px; width: 70vw"
-                            >
-                                <template slot="append">
-                                    <v-btn outlined @click="addTask">
-                                        {{ $t("buttons.add") }}
-                                    </v-btn>
-                                </template>
-                            </v-text-field>
-                            <TaskCard v-for="task in taskList" :key="task" :task="task"/>
+                            <v-form class="my-4" @submit.prevent="addTask">
+                                <v-text-field
+                                        v-model="task"
+                                        :label="$t('enterTask')"
+                                        solo
+                                        style="margin: auto; width: 70vw;"> >
+                                    <template slot="append">
+                                        <v-btn outlined @click="addTask">
+                                            {{ $t("buttons.add") }}
+                                        </v-btn>
+                                    </template>
+                                </v-text-field>
+                            </v-form>
+                            <draggable v-model="taskList" :animation="200">
+                                <TaskCard v-for="task in taskList" :key="task" :task="task"/>
+                            </draggable>
                         </div>
                     </v-tab-item>
-                    <v-tab-item class="tab-item-wrapper">
-                        <DoneTaskCard v-for="task in doneList" :key="task" :task="task"/>
+                    <v-tab-item>
+                        <div class="tab-item-wrapper">
+                            <DoneTaskCard v-for="task in doneList" :key="task" :task="task"/>
+                        </div>
                     </v-tab-item>
-
                 </v-tabs-items>
             </v-flex>
         </v-layout>
@@ -39,23 +42,26 @@
     export default {
         components: {
             TaskCard: () => import("../components/TaskCard"),
-            DoneTaskCard: () => import("../components/DoneTaskCard")
+            DoneTaskCard: () => import("../components/DoneTaskCard"),
+            draggable: () => import("vuedraggable")
         },
         data() {
             return {
                 tab: null,
-                task: "",
-                googleSignInParams: {
-                    client_id: "901060617777-1nic5bknq28bi7ohhj9k66398hlqtvp4.apps.googleusercontent.com"
-                }
+                task: ""
             }
         },
         computed: {
             disabled: function () {
                 return this.$store.state.done.length <= 0;
             },
-            taskList: function () {
-                return this.$store.state.tasks;
+            taskList: {
+                get() {
+                    return this.$store.state.tasks;
+                },
+                set(value) {
+                    this.$store.commit("updateTasks", value);
+                }
             },
             doneList: function () {
                 return this.$store.state.done;
@@ -63,8 +69,10 @@
         },
         methods: {
             addTask() {
-                this.$store.commit("setTasks", this.task);
-                this.task = "";
+                if (this.task.length > 0) {
+                    this.$store.commit("setTasks", this.task);
+                    this.task = "";
+                }
             }
         }
     }
@@ -72,7 +80,7 @@
 
 <style>
     .tab-item-wrapper {
-        height: calc(90vh - 48px);
+        width: 100vw;
         overflow-y: auto;
     }
 </style>

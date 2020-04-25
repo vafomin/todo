@@ -26,13 +26,16 @@ export default new Vuex.Store({
             state.lang = payload;
         },
         setTasks: (state, payload) => {
-            state.tasks.push(payload);
+            state.tasks.unshift(payload);
         },
-        setDone: (state, payload) => {
-            state.done.push(payload);
+        updateTasks: (state, payload) => {
+            state.tasks = payload;
         },
         deleteTask: (state, payload) => {
             state.tasks.splice(payload, 1);
+        },
+        setDone: (state, payload) => {
+            state.done.unshift(payload);
         },
         deleteDone: (state, payload) => {
             state.done.splice(payload, 1);
