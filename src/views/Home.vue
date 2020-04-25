@@ -23,7 +23,7 @@
                                 </v-text-field>
                             </v-form>
                             <p class="headline text-center" v-if="taskList.length === 0">{{ $t("noTask") }}</p>
-                            <draggable v-else :list="taskList" :animation="200">
+                            <draggable v-else v-model="taskList" :animation="200">
                                 <TaskCard v-for="task in taskList" :key="task" :task="task"/>
                             </draggable>
                         </div>
@@ -74,6 +74,9 @@
                     this.$store.commit("setTasks", this.task);
                     this.task = "";
                 }
+            },
+            upd() {
+                this.$store.commit("updateTasks", this.taskList);
             }
         }
     }
