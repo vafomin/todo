@@ -1,8 +1,5 @@
 <template>
-    <v-card
-            class="mx-auto my-4"
-            width="70vw"
-    >
+    <v-card class="mx-auto my-4" width="70vw">
         <v-card-text>
             <p class="headline">{{ task }}</p>
         </v-card-text>
@@ -15,7 +12,6 @@
                 <v-icon>mdi-delete</v-icon>
                 {{ $t("buttons.delete") }}
             </v-btn>
-
         </v-card-actions>
     </v-card>
 </template>
@@ -39,7 +35,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>
