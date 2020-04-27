@@ -8,7 +8,8 @@ export const messages = {
             add: "Добавить",
             done: "Выполнено",
             delete: "Удалить",
-            restore: "Восстановить"
+            restore: "Восстановить",
+            home: "На главную"
         },
         tabs: {
             tasks: "Задания",
@@ -29,7 +30,8 @@ export const messages = {
             add: "Add",
             done: "Done",
             delete: "Delete",
-            restore: "Restore"
+            restore: "Restore",
+            home: "Home"
         },
         tabs: {
             tasks: "Tasks",

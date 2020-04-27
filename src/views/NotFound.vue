@@ -5,6 +5,9 @@
                 <div class="headline pb-4">
                     <h1>{{ $t("notFound") }}</h1>
                 </div>
+                <v-btn color="primary" outlined large to="/">
+                    {{ $t("buttons.home") }}
+                </v-btn>
             </v-flex>
         </v-layout>
     </div>
