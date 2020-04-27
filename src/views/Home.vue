@@ -2,6 +2,8 @@
     <div class="v-container pa-4">
         <v-layout column="column" justify-center="justify-center" align-center="align-center">
             <v-flex xs12="xs12" md10="md10">
+                <p class="headline text-center">{{ $t("start") }} <a href="">{{ $t("buttons.login").toLowerCase() }}</a>
+                </p>
                 <v-tabs v-model="tab" grow>
                     <v-tab>{{ $t("tabs.tasks") }}</v-tab>
                     <v-tab :disabled="disabled">{{ $t("tabs.done") }}</v-tab>
