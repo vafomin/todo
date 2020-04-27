@@ -1,7 +1,7 @@
 <template>
     <v-card class="mx-auto my-4" width="70vw">
         <v-card-text>
-            <p class="headline">{{ task }}</p>
+            <p class="handle headline">{{ task }}</p>
         </v-card-text>
         <v-card-actions>
             <v-btn color="success" outlined @click="doneTask">
