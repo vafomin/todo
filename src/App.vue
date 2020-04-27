@@ -39,7 +39,10 @@
         <v-dialog v-model="dialog" max-width="400">
             <v-card>
                 <v-card-title class="headline">{{ $t("about.title") }}</v-card-title>
-                <v-card-text>{{ $t("about.body") }}</v-card-text>
+                <v-card-text class="subtitle-1">
+                    {{ $t("about.body") }}
+                    <a href="https://github.com/enotcode/todo" target="_blank">GitHub</a>
+                </v-card-text>
             </v-card>
         </v-dialog>
     </v-app>

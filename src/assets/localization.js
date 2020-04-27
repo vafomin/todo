@@ -17,7 +17,7 @@ export const messages = {
         },
         about: {
             title: "Что такое ToDo?",
-            body: "ToDo - простой список задач. Это Open-Source проект, исходники можно найти на GitHub"
+            body: "ToDo - простой список задач. Это Open-Source проект, исходники можно найти на"
         },
         notFound: "Страница не найдена",
     },
@@ -39,7 +39,7 @@ export const messages = {
         },
         about: {
             title: "What is ToDo?",
-            body: "ToDo is a simple list of tasks. This is an Open-Source project, the sources can be found at GitHub."
+            body: "ToDo is a simple list of tasks. This is an Open-Source project, the sources can be found at "
         },
         notFound: "Page not found",
     }
