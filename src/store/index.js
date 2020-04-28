@@ -44,6 +44,9 @@ export default new Vuex.Store({
         setDone: (state, payload) => {
             state.done.unshift(payload);
         },
+        updateDone: (state, payload) => {
+            state.done = payload;
+        },
         deleteDone: (state, payload) => {
             state.done.splice(payload, 1);
         }
