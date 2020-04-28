@@ -17,6 +17,14 @@ export const messages = {
             tasks: "Задания",
             done: "Выполненные"
         },
+        auth: {
+            "title": "Войти",
+            "email": "E-mail",
+            "password": "Пароль",
+            "noAccount": "Нет аккаунта?",
+            "reg": "Зарегистрируйтесь сейчас",
+            "btn": "Войти"
+        },
         about: {
             title: "Что такое ToDo?",
             body: "ToDo - простой список задач. Это Open-Source проект, исходники можно найти на"
@@ -40,6 +48,14 @@ export const messages = {
         tabs: {
             tasks: "Tasks",
             done: "Done"
+        },
+        auth: {
+            "title": "Login",
+            "email": "E-mail",
+            "password": "Password",
+            "noAccount": "No have account?",
+            "reg": "Sign up now",
+            "btn": "Login"
         },
         about: {
             title: "What is ToDo?",

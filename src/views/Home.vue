@@ -2,7 +2,8 @@
     <div class="v-container pa-4">
         <v-layout column="column" justify-center="justify-center" align-center="align-center">
             <v-flex xs12="xs12" md10="md10">
-                <p class="headline text-center">{{ $t("start") }} <a href="">{{ $t("buttons.login").toLowerCase() }}</a>
+                <p class="headline text-center">{{ $t("start") }}
+                    <a @click="dialog=true">{{ $t("buttons.login").toLowerCase() }}</a>
                 </p>
                 <v-tabs v-model="tab" grow>
                     <v-tab>{{ $t("tabs.tasks") }}</v-tab>
@@ -38,6 +39,32 @@
                 </v-tabs-items>
             </v-flex>
         </v-layout>
+
+        <v-row justify="center">
+            <v-dialog v-model="dialog" max-width="600px">
+                <v-card>
+                    <v-card-title>
+                        <span class="headline">{{ $t("auth.title") }}</span>
+                    </v-card-title>
+                    <v-card-text>
+                        <v-container>
+                            <v-row>
+                                <v-col cols="12">
+                                    <v-text-field :label="$t('auth.email')" required></v-text-field>
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-text-field :label="$t('auth.password')" type="password" required></v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                        <small>{{ $t("auth.noAccount") }} {{ $t("auth.reg") }}</small>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-btn color="primary" outlined>{{ $t("auth.btn") }}</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+        </v-row>
     </div>
 </template>
 
@@ -51,7 +78,8 @@
         data() {
             return {
                 tab: null,
-                task: ""
+                task: "",
+                dialog: false
             }
         },
         computed: {
