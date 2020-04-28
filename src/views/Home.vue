@@ -124,8 +124,10 @@
                 }
             },
             login() {
-                api.auth(this.email, this.password).then(response => {
-                    this.$store.commit("setUser", response);
+                api.auth(this.email, this.password).then(r => {
+                    this.$store.commit("setUser", r.user);
+                    this.$store.commit("updateTasks", r.tasks);
+                    this.$store.commit("updateDone", r.done);
                     this.dialog = false;
                 }).catch(() => {
                     this.error = true;
