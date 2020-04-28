@@ -7,13 +7,9 @@ const api = {
         return await axios.post("/auth", {
             email: email,
             password: password
-        })
-            .then(response => {
-                return response.data.user;
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        }).then(response => {
+            return response.data.user;
+        });
     }
 };
 

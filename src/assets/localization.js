@@ -25,7 +25,8 @@ export const messages = {
             "reg": "Зарегистрируйтесь сейчас",
             "btn": "Войти",
             "youLogin": "Вы вошли, как ",
-            "logout": "Выйти"
+            "logout": "Выйти",
+            "error": "Неправильно введен e-mail или пароль"
         },
         about: {
             title: "Что такое ToDo?",
@@ -59,7 +60,8 @@ export const messages = {
             "reg": "Sign up now",
             "btn": "Login",
             "youLogin": "You login, as ",
-            "logout": "Logout"
+            "logout": "Logout",
+            "error": "E-mail or password entered incorrectly"
         },
         about: {
             title: "What is ToDo?",

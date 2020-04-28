@@ -69,6 +69,9 @@
                 </v-card>
             </v-dialog>
         </v-row>
+        <v-snackbar v-model="error" color="error" :timeout="2000" top>
+            {{ $t("auth.error") }}
+        </v-snackbar>
     </div>
 </template>
 
@@ -87,7 +90,8 @@
                 task: "",
                 dialog: false,
                 email: "",
-                password: ""
+                password: "",
+                error: false
             }
         },
         computed: {
@@ -123,6 +127,8 @@
                 api.auth(this.email, this.password).then(response => {
                     this.$store.commit("setUser", response);
                     this.dialog = false;
+                }).catch(() => {
+                    this.error = true;
                 });
             },
             logout() {
