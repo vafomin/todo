@@ -8,7 +8,7 @@ const api = {
             email: email,
             password: password
         }).then(response => {
-            return response.data.user;
+            return response.data;
         });
     }
 };
