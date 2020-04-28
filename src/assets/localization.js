@@ -23,7 +23,9 @@ export const messages = {
             "password": "Пароль",
             "noAccount": "Нет аккаунта?",
             "reg": "Зарегистрируйтесь сейчас",
-            "btn": "Войти"
+            "btn": "Войти",
+            "youLogin": "Вы вошли, как ",
+            "logout": "Выйти"
         },
         about: {
             title: "Что такое ToDo?",
@@ -55,7 +57,9 @@ export const messages = {
             "password": "Password",
             "noAccount": "No have account?",
             "reg": "Sign up now",
-            "btn": "Login"
+            "btn": "Login",
+            "youLogin": "You login, as ",
+            "logout": "Logout"
         },
         about: {
             title: "What is ToDo?",

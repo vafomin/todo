@@ -2,8 +2,11 @@
     <div class="v-container pa-4">
         <v-layout column="column" justify-center="justify-center" align-center="align-center">
             <v-flex xs12="xs12" md10="md10">
-                <p class="headline text-center">{{ $t("start") }}
+                <p v-if="!isAuth" class="headline text-center">{{ $t("start") }}
                     <a @click="dialog=true">{{ $t("buttons.login").toLowerCase() }}</a>
+                </p>
+                <p v-else class="headline text-center">{{ $t("auth.youLogin") }} {{ user }}.
+                    <a @click="logout">{{ $t("auth.logout") }}</a>
                 </p>
                 <v-tabs v-model="tab" grow>
                     <v-tab>{{ $t("tabs.tasks") }}</v-tab>
@@ -50,17 +53,18 @@
                         <v-container>
                             <v-row>
                                 <v-col cols="12">
-                                    <v-text-field :label="$t('auth.email')" required></v-text-field>
+                                    <v-text-field v-model="email" :label="$t('auth.email')" required></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
-                                    <v-text-field :label="$t('auth.password')" type="password" required></v-text-field>
+                                    <v-text-field v-model="password" :label="$t('auth.password')" type="password"
+                                                  required></v-text-field>
                                 </v-col>
                             </v-row>
                         </v-container>
                         <small>{{ $t("auth.noAccount") }} {{ $t("auth.reg") }}</small>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn color="primary" outlined>{{ $t("auth.btn") }}</v-btn>
+                        <v-btn color="primary" outlined @click="login">{{ $t("auth.btn") }}</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -69,6 +73,8 @@
 </template>
 
 <script>
+    import api from "../plugins/api";
+
     export default {
         components: {
             TaskCard: () => import("../components/TaskCard"),
@@ -79,10 +85,15 @@
             return {
                 tab: null,
                 task: "",
-                dialog: false
+                dialog: false,
+                email: "",
+                password: ""
             }
         },
         computed: {
+            isAuth: function () {
+                return this.$store.state.user != null;
+            },
             disabled: function () {
                 return this.$store.state.done.length <= 0;
             },
@@ -96,6 +107,9 @@
             },
             doneList: function () {
                 return this.$store.state.done;
+            },
+            user: function () {
+                return this.$store.state.user;
             }
         },
         methods: {
@@ -104,6 +118,15 @@
                     this.$store.commit("setTasks", this.task);
                     this.task = "";
                 }
+            },
+            login() {
+                api.auth(this.email, this.password).then(response => {
+                    this.$store.commit("setUser", response);
+                    this.dialog = false;
+                });
+            },
+            logout() {
+                this.$store.commit("setUser", null);
             }
         }
     }

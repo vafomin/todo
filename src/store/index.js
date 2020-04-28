@@ -7,12 +7,16 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         lang: undefined,
+        user: null,
         tasks: [],
         done: []
     },
     getters: {
         lang: state => {
             return state.lang;
+        },
+        user: state => {
+            return state.user;
         },
         tasks: state => {
             return state.tasks;
@@ -24,6 +28,9 @@ export default new Vuex.Store({
     mutations: {
         setLang: (state, payload) => {
             state.lang = payload;
+        },
+        setUser: (state, payload) => {
+            state.user = payload;
         },
         setTasks: (state, payload) => {
             state.tasks.unshift(payload);
