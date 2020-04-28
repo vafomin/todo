@@ -76,9 +76,6 @@
                     this.$store.commit("setTasks", this.task);
                     this.task = "";
                 }
-            },
-            upd() {
-                this.$store.commit("updateTasks", this.taskList);
             }
         }
     }
