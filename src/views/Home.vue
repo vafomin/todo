@@ -137,6 +137,8 @@
             },
             logout() {
                 this.$store.commit("setUser", null);
+                this.$store.commit("updateTasks", []);
+                this.$store.commit("updateDone", []);
             }
         }
     }
