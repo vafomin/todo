@@ -17,6 +17,13 @@ const api = {
         }).then(response => {
             return response.data;
         });
+    },
+    async updDone(doneTasks) {
+        return await axios.post("/updDone", {
+            done: doneTasks
+        }).then(response => {
+            return response.data;
+        });
     }
 
 };
