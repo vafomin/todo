@@ -10,7 +10,15 @@ const api = {
         }).then(response => {
             return response.data;
         });
+    },
+    async updTasks(tasks) {
+        return await axios.post("/updTasks", {
+            tasks: tasks
+        }).then(response => {
+            return response.data;
+        });
     }
+
 };
 
 export default api;
