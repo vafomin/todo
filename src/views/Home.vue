@@ -89,6 +89,7 @@
                 tab: null,
                 task: "",
                 dialog: false,
+                regDialog: false,
                 email: "",
                 password: "",
                 error: false
@@ -120,6 +121,7 @@
             addTask() {
                 if (this.task.length > 0) {
                     this.$store.commit("setTasks", this.task);
+                    api.updTasks(this.taskList);
                     this.task = "";
                 }
             },

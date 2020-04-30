@@ -17,6 +17,8 @@
 </template>
 
 <script>
+    import api from "../plugins/api"
+
     export default {
         name: "TaskCard",
         props: {
@@ -27,10 +29,14 @@
                 this.$store.commit("setDone", this.task);
                 let idx = this.$store.state.tasks.indexOf(this.task);
                 this.$store.commit("deleteTask", idx);
+                api.updTasks(this.$store.state.tasks);
+                api.updDone(this.$store.state.done);
+
             },
             deleteTask() {
                 let idx = this.$store.state.tasks.indexOf(this.task);
                 this.$store.commit("deleteTask", idx);
+                api.updTasks(this.$store.state.tasks);
             }
         }
     }
