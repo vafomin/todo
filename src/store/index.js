@@ -7,27 +7,17 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         lang: undefined,
+        loginForm: false,
         user: null,
         tasks: [],
         done: []
     },
-    getters: {
-        lang: state => {
-            return state.lang;
-        },
-        user: state => {
-            return state.user;
-        },
-        tasks: state => {
-            return state.tasks;
-        },
-        done: state => {
-            return state.done;
-        }
-    },
     mutations: {
         setLang: (state, payload) => {
             state.lang = payload;
+        },
+        setLoginForm: (state, payload) => {
+            state.loginForm = payload;
         },
         setUser: (state, payload) => {
             state.user = payload;
