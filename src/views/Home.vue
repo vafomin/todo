@@ -121,7 +121,7 @@
             addTask() {
                 if (this.task.length > 0) {
                     this.$store.commit("setTasks", this.task);
-                    api.updTasks(this.taskList);
+                    api.updTasks(this.$store.state.user, this.taskList);
                     this.task = "";
                 }
             },
