@@ -11,21 +11,22 @@ const api = {
             return response.data;
         });
     },
-    async updTasks(tasks) {
+    async updTasks(user, tasks) {
         return await axios.post("/updTasks", {
+            user: user,
             tasks: tasks
         }).then(response => {
             return response.data;
         });
     },
-    async updDone(doneTasks) {
+    async updDone(user, doneTasks) {
         return await axios.post("/updDone", {
+            user: user,
             done: doneTasks
         }).then(response => {
             return response.data;
         });
     }
-
 };
 
 export default api;
