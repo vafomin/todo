@@ -18,15 +18,22 @@ export const messages = {
             done: "Выполненные"
         },
         auth: {
-            "title": "Войти",
-            "email": "E-mail",
-            "password": "Пароль",
-            "noAccount": "Нет аккаунта?",
-            "reg": "Зарегистрируйтесь сейчас",
-            "btn": "Войти",
-            "youLogin": "Вы вошли, как ",
-            "logout": "Выйти",
-            "error": "Неправильно введен e-mail или пароль"
+            loginTitle: "Войти",
+            regTitle: "Регистрация",
+            email: "E-mail",
+            password: "Пароль",
+            noAccount: "Нет аккаунта?",
+            reg: "Зарегистрируйтесь сейчас",
+            haveAccount: "Есть аккаунт?",
+            login: "Войдите сейчас",
+            loginBtn: "Войти",
+            regBtn: "Зарегистрироваться",
+            youLogin: "Вы вошли, как ",
+            logout: "Выйти",
+            error: "Неправильно введен e-mail или пароль",
+            emailError: "E-mail должен быть действительным",
+            emailReq: "Требуется e-mail",
+            passwordLen: "Пароль не должен быть менее 8 символов"
         },
         about: {
             title: "Что такое ToDo?",
@@ -46,22 +53,29 @@ export const messages = {
             delete: "Delete",
             restore: "Restore",
             home: "Home",
-            login: "Login"
+            login: "Sign In"
         },
         tabs: {
             tasks: "Tasks",
             done: "Done"
         },
         auth: {
-            "title": "Login",
-            "email": "E-mail",
-            "password": "Password",
-            "noAccount": "No have account?",
-            "reg": "Sign up now",
-            "btn": "Login",
-            "youLogin": "You login, as ",
-            "logout": "Logout",
-            "error": "E-mail or password entered incorrectly"
+            loginTitle: "Login",
+            regTitle: "Register",
+            email: "E-mail",
+            password: "Password",
+            noAccount: "No have account?",
+            reg: "Sign up now",
+            haveAccount: "Do you have an account?",
+            login: "Sign in now",
+            loginBtn: "Login",
+            regBtn: "Sign Up",
+            youLogin: "You login, as ",
+            logout: "Logout",
+            error: "E-mail or password entered incorrectly",
+            emailError: "E-mail must be valid",
+            emailReq: "E-mail required",
+            passwordLen: "Password must be at least 8 characters long"
         },
         about: {
             title: "What is ToDo?",
