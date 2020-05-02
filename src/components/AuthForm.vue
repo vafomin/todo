@@ -36,11 +36,12 @@
                         <v-container>
                             <v-row>
                                 <v-col cols="12">
-                                    <v-text-field v-model="email" :label="$t('auth.email')" :rules="emailRules"
+                                    <v-text-field v-model="emailReg" :label="$t('auth.email')" :rules="emailRules"
                                                   required></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
-                                    <v-text-field v-model="password" :label="$t('auth.password')" :rules="passwordRules"
+                                    <v-text-field v-model="passwordReg" :label="$t('auth.password')"
+                                                  :rules="passwordRules"
                                                   type="password" required></v-text-field>
                                 </v-col>
                             </v-row>
@@ -57,6 +58,10 @@
         <v-snackbar v-model="error" color="error" :timeout="2000" top>
             {{ $t("auth.error") }}
         </v-snackbar>
+
+        <v-snackbar v-model="userError" color="error" :timeout="2000" top>
+            {{ $t("auth.userError") }}
+        </v-snackbar>
     </v-row>
 </template>
 
@@ -69,8 +74,11 @@
             return {
                 email: "",
                 password: "",
+                emailReg: "",
+                passwordReg: "",
                 valid: true,
                 error: false,
+                userError: false,
                 emailRules: [
                     v => !!v || this.$t("auth.emailReq"),
                     v => /.+@.+\..+/.test(v) || this.$t("auth.emailError"),
@@ -111,7 +119,14 @@
                 });
             },
             reg() {
-                console.log("Reg");
+                api.reg(this.emailReg, this.passwordReg).then(r => {
+                    this.$store.commit("setUser", r.user);
+                    this.$store.commit("updateTasks", r.tasks);
+                    this.$store.commit("updateDone", r.done);
+                    this.$store.commit("setRegForm", false);
+                }).catch(() => {
+                    this.userError = true;
+                });
             },
             openLoginForm() {
                 this.$store.commit("setRegForm", false);

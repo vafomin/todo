@@ -11,6 +11,14 @@ const api = {
             return response.data;
         });
     },
+    async reg(email, password) {
+        return await axios.post("/reg", {
+            email: email,
+            password: password
+        }).then(response => {
+            return response.data;
+        });
+    },
     async updTasks(user, tasks) {
         return await axios.post("/updTasks", {
             user: user,
