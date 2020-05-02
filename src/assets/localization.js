@@ -31,6 +31,7 @@ export const messages = {
             youLogin: "Вы вошли, как ",
             logout: "Выйти",
             error: "Неправильно введен e-mail или пароль",
+            userError: "Похоже такой пользователь уже существует",
             emailError: "E-mail должен быть действительным",
             emailReq: "Требуется e-mail",
             passwordLen: "Пароль не должен быть менее 8 символов"
@@ -73,6 +74,7 @@ export const messages = {
             youLogin: "You login, as ",
             logout: "Logout",
             error: "E-mail or password entered incorrectly",
+            userError: "Looks like this user already exists",
             emailError: "E-mail must be valid",
             emailReq: "E-mail required",
             passwordLen: "Password must be at least 8 characters long"
