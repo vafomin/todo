@@ -44,9 +44,6 @@
         </v-layout>
 
         <AuthForm/>
-        <v-snackbar v-model="error" color="error" :timeout="2000" top>
-            {{ $t("auth.error") }}
-        </v-snackbar>
     </div>
 </template>
 
@@ -63,10 +60,7 @@
         data() {
             return {
                 tab: null,
-                task: "",
-                email: "",
-                password: "",
-                error: false
+                task: ""
             }
         },
         computed: {
