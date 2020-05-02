@@ -8,6 +8,7 @@ export default new Vuex.Store({
     state: {
         lang: undefined,
         loginForm: false,
+        regForm: false,
         user: null,
         tasks: [],
         done: []
@@ -18,6 +19,9 @@ export default new Vuex.Store({
         },
         setLoginForm: (state, payload) => {
             state.loginForm = payload;
+        },
+        setRegForm: (state, payload) => {
+            state.regForm = payload;
         },
         setUser: (state, payload) => {
             state.user = payload;
