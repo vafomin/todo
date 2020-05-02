@@ -3,7 +3,7 @@
         <v-layout column="column" justify-center="justify-center" align-center="align-center">
             <v-flex xs12="xs12" md10="md10">
                 <p v-if="!isAuth" class="headline text-center">{{ $t("start") }}
-                    <a @click="dialog=true">{{ $t("buttons.login").toLowerCase() }}</a>
+                    <a @click="openForm">{{ $t("buttons.login").toLowerCase() }}</a>
                 </p>
                 <p v-else class="headline text-center">{{ $t("auth.youLogin") }} {{ user }}.
                     <a @click="logout">{{ $t("auth.logout") }}</a>
@@ -43,32 +43,7 @@
             </v-flex>
         </v-layout>
 
-        <v-row justify="center">
-            <v-dialog v-model="dialog" max-width="600px">
-                <v-card>
-                    <v-card-title>
-                        <span class="headline">{{ $t("auth.title") }}</span>
-                    </v-card-title>
-                    <v-card-text>
-                        <v-container>
-                            <v-row>
-                                <v-col cols="12">
-                                    <v-text-field v-model="email" :label="$t('auth.email')" required></v-text-field>
-                                </v-col>
-                                <v-col cols="12">
-                                    <v-text-field v-model="password" :label="$t('auth.password')" type="password"
-                                                  required></v-text-field>
-                                </v-col>
-                            </v-row>
-                        </v-container>
-                        <small>{{ $t("auth.noAccount") }} {{ $t("auth.reg") }}</small>
-                    </v-card-text>
-                    <v-card-actions>
-                        <v-btn color="primary" outlined @click="login">{{ $t("auth.btn") }}</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
-        </v-row>
+        <AuthForm/>
         <v-snackbar v-model="error" color="error" :timeout="2000" top>
             {{ $t("auth.error") }}
         </v-snackbar>
@@ -82,24 +57,23 @@
         components: {
             TaskCard: () => import("../components/TaskCard"),
             DoneTaskCard: () => import("../components/DoneTaskCard"),
+            AuthForm: () => import("../components/AuthForm"),
             draggable: () => import("vuedraggable")
         },
         data() {
             return {
                 tab: null,
                 task: "",
-                dialog: false,
-                regDialog: false,
                 email: "",
                 password: "",
                 error: false
             }
         },
         computed: {
-            isAuth: function () {
+            isAuth() {
                 return this.$store.state.user != null;
             },
-            disabled: function () {
+            disabled() {
                 return this.$store.state.done.length <= 0;
             },
             taskList: {
@@ -110,30 +84,23 @@
                     this.$store.commit("updateTasks", value);
                 }
             },
-            doneList: function () {
+            doneList() {
                 return this.$store.state.done;
             },
-            user: function () {
+            user() {
                 return this.$store.state.user;
             }
         },
         methods: {
+            openForm() {
+                this.$store.commit("setLoginForm", true);
+            },
             addTask() {
                 if (this.task.length > 0) {
                     this.$store.commit("setTasks", this.task);
                     api.updTasks(this.$store.state.user, this.taskList);
                     this.task = "";
                 }
-            },
-            login() {
-                api.auth(this.email, this.password).then(r => {
-                    this.$store.commit("setUser", r.user);
-                    this.$store.commit("updateTasks", r.tasks);
-                    this.$store.commit("updateDone", r.done);
-                    this.dialog = false;
-                }).catch(() => {
-                    this.error = true;
-                });
             },
             logout() {
                 this.$store.commit("setUser", null);
