@@ -13,8 +13,6 @@
 </template>
 
 <script>
-    import api from "../plugins/api"
-
     export default {
         name: "TaskCard",
         props: {
@@ -25,8 +23,6 @@
                 this.$store.commit("setTasks", this.task);
                 let idx = this.$store.state.done.indexOf(this.task);
                 this.$store.commit("deleteDone", idx);
-                api.updTasks(this.$store.state.user, this.$store.state.tasks);
-                api.updDone(this.$store.state.user, this.$store.state.done);
             }
         }
     }

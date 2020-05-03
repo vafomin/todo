@@ -48,7 +48,7 @@
 </template>
 
 <script>
-    import api from "../plugins/api";
+    import api from "../plugins/api"
 
     export default {
         components: {
@@ -85,6 +85,12 @@
                 return this.$store.state.user;
             }
         },
+        updated() {
+            if (this.isAuth) {
+                api.updTasks(this.user, this.taskList);
+                api.updDone(this.user, this.doneList);
+            }
+        },
         methods: {
             openForm() {
                 this.$store.commit("setLoginForm", true);
@@ -92,7 +98,6 @@
             addTask() {
                 if (this.task.length > 0) {
                     this.$store.commit("setTasks", this.task);
-                    api.updTasks(this.$store.state.user, this.taskList);
                     this.task = "";
                 }
             },
