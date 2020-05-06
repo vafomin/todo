@@ -7,6 +7,7 @@ export const messages = {
         noTask: "Похоже у вас еще нет задач...",
         noDone: "Похоже у вас нет выполненных задач...",
         created: "Создано в ",
+        done: "Выполнено в",
         buttons: {
             add: "Добавить",
             done: "Выполнено",
@@ -37,6 +38,7 @@ export const messages = {
         noTask: "Looks like you don't have any tasks yet...",
         noDone: "Looks like you don't have a done tasks...",
         created: "Created at ",
+        done: "Done at ",
         buttons: {
             add: "Add",
             done: "Done",
