@@ -40,6 +40,11 @@ export const store = new Vuex.Store({
         done: []
     },
     actions: {
+        cleanData({commit}) {
+            commit("setUser", null);
+            commit("setTasks", []);
+            commit("setDone", []);
+        },
         async addTask({state}, {task}) {
             const authorId = state.user.uid;
             await fb.tasksCollection.add({
