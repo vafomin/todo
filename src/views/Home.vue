@@ -20,7 +20,8 @@
                                         v-model="task"
                                         :label="$t('enterTask')"
                                         solo
-                                        style="margin: auto; width: 70vw;"> >
+                                        class="mx-6 mx-sm-auto"
+                                        style="width: 70vw;"> >
                                     <template slot="append">
                                         <v-btn outlined @click="newTask">
                                             {{ $t("buttons.add") }}
