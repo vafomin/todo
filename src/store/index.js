@@ -57,7 +57,6 @@ export const store = new Vuex.Store({
         async deleteTask({state}, {id}) {
             await fb.tasksCollection.doc(id).delete();
         },
-        // eslint-disable-next-line no-unused-vars
         async doneTask({state}, {id, task}) {
             const authorId = state.user.uid;
             await fb.doneCollection.add({
@@ -66,6 +65,15 @@ export const store = new Vuex.Store({
                 createdOn: fb.firebase.firestore.Timestamp.now(),
             });
             await fb.tasksCollection.doc(id).delete();
+        },
+        async restoreTask({state}, {id, task}) {
+            const authorId = state.user.uid;
+            await fb.tasksCollection.add({
+                task,
+                authorId,
+                createdOn: fb.firebase.firestore.Timestamp.now(),
+            });
+            await fb.doneCollection.doc(id).delete();
         }
     },
     mutations: {

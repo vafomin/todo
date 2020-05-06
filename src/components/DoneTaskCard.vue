@@ -4,7 +4,7 @@
             <p class="headline">{{ task }}</p>
         </v-card-text>
         <v-card-actions>
-            <v-btn color="blue lighten-1" outlined @click="restoreTask">
+            <v-btn color="blue lighten-1" outlined @click="restore">
                 <v-icon>mdi-restore</v-icon>
                 {{ $t("buttons.restore") }}
             </v-btn>
@@ -13,16 +13,21 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex'
+
     export default {
         name: "TaskCard",
         props: {
+            id: String,
             task: String
         },
         methods: {
-            restoreTask() {
-                this.$store.commit("setTasks", this.task);
-                let idx = this.$store.state.done.indexOf(this.task);
-                this.$store.commit("deleteDone", idx);
+            ...mapActions(["restoreTask"]),
+
+            restore() {
+                let id = this.id;
+                let task = this.task;
+                this.restoreTask({id, task});
             }
         }
     }
