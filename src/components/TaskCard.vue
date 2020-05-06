@@ -4,11 +4,11 @@
             <p class="handle headline">{{ task }}</p>
         </v-card-text>
         <v-card-actions>
-            <v-btn color="success" outlined @click="doneTask">
+            <v-btn color="success" outlined @click="done">
                 <v-icon>mdi-check</v-icon>
                 {{ $t("buttons.done") }}
             </v-btn>
-            <v-btn color="error" outlined @click="deleteTask">
+            <v-btn color="error" outlined @click="del">
                 <v-icon>mdi-delete</v-icon>
                 {{ $t("buttons.delete") }}
             </v-btn>
@@ -17,22 +17,25 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex'
+
     export default {
         name: "TaskCard",
         props: {
+            id: String,
             task: String
         },
         methods: {
-            doneTask() {
-                this.$store.commit("setDone", this.task);
-                let idx = this.$store.state.tasks.indexOf(this.task);
-                this.$store.commit("deleteTask", idx);
-
+            ...mapActions(["deleteTask", "doneTask"]),
+            del() {
+                let id = this.id;
+                this.deleteTask({id});
             },
-            deleteTask() {
-                let idx = this.$store.state.tasks.indexOf(this.task);
-                this.$store.commit("deleteTask", idx);
-            }
+            done() {
+                let id = this.id;
+                let task = this.task;
+                this.doneTask({id, task})
+            },
         }
     }
 </script>
