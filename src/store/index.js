@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
 const fb = require('../../firebaseConfig');
+const uuid = require("uuid");
 
 Vue.use(Vuex);
 
@@ -45,35 +46,64 @@ export const store = new Vuex.Store({
             commit("setTasks", []);
             commit("setDone", []);
         },
-        async addTask({state}, {task}) {
-            const authorId = state.user.uid;
-            await fb.tasksCollection.add({
-                task,
-                authorId,
-                createdOn: fb.firebase.firestore.Timestamp.now(),
-            });
+        async addTask({state, commit}, {task}) {
+            if (state.user !== null) {
+                const authorId = state.user.uid;
+                await fb.tasksCollection.add({
+                    task,
+                    authorId,
+                    createdOn: fb.firebase.firestore.Timestamp.now(),
+                });
+            } else {
+                let uid = uuid.v4();
+                commit("addTask", {id: uid, task: task});
+            }
         },
-        // eslint-disable-next-line no-unused-vars
-        async deleteTask({state}, {id}) {
-            await fb.tasksCollection.doc(id).delete();
+        async deleteTask({state, commit}, {id}) {
+            if (state.user !== null) {
+                await fb.tasksCollection.doc(id).delete();
+            } else {
+                const index = state.tasks.findIndex(n => n.id === id);
+                if (index !== -1) {
+                    commit("delTask", index);
+                }
+            }
         },
-        async doneTask({state}, {id, task}) {
-            const authorId = state.user.uid;
-            await fb.doneCollection.add({
-                task,
-                authorId,
-                createdOn: fb.firebase.firestore.Timestamp.now(),
-            });
-            await fb.tasksCollection.doc(id).delete();
+        async doneTask({state, commit}, {id, task}) {
+            if (state.user !== null) {
+                const authorId = state.user.uid;
+                await fb.doneCollection.add({
+                    task,
+                    authorId,
+                    createdOn: fb.firebase.firestore.Timestamp.now(),
+                });
+                await fb.tasksCollection.doc(id).delete();
+            } else {
+                const index = state.tasks.findIndex(n => n.id === id);
+                if (index !== -1) {
+                    commit("delTask", index);
+                }
+                let uid = uuid.v4();
+                commit("addDone", {id: uid, task: task});
+            }
         },
-        async restoreTask({state}, {id, task}) {
-            const authorId = state.user.uid;
-            await fb.tasksCollection.add({
-                task,
-                authorId,
-                createdOn: fb.firebase.firestore.Timestamp.now(),
-            });
-            await fb.doneCollection.doc(id).delete();
+        async restoreTask({state, commit}, {id, task}) {
+            if (state.user !== null) {
+                const authorId = state.user.uid;
+                await fb.tasksCollection.add({
+                    task,
+                    authorId,
+                    createdOn: fb.firebase.firestore.Timestamp.now(),
+                });
+                await fb.doneCollection.doc(id).delete();
+            } else {
+                const index = state.done.findIndex(n => n.id === id);
+                if (index !== -1) {
+                    commit("delDone", index);
+                }
+                let uid = uuid.v4();
+                commit("addTask", {id: uid, task: task});
+            }
         }
     },
     mutations: {
@@ -86,8 +116,20 @@ export const store = new Vuex.Store({
         setTasks: (state, payload) => {
             state.tasks = payload;
         },
+        addTask: (state, payload) => {
+            state.tasks.unshift(payload);
+        },
+        delTask: (state, payload) => {
+            state.tasks.splice(payload, 1);
+        },
         setDone: (state, payload) => {
             state.done = payload;
+        },
+        addDone: (state, payload) => {
+            state.done.unshift(payload);
+        },
+        delDone: (state, payload) => {
+            state.done.splice(payload, 1);
         }
     },
     plugins: [createPersistedState()]
