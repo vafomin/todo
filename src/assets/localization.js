@@ -5,7 +5,7 @@ export const messages = {
         createdBy: "Создано",
         enterTask: "Введите задание...",
         noTask: "Похоже у вас еще нет задач...",
-        noDone: "Похоже вы не выполнили ни одной задачи...",
+        noDone: "Похоже у вас нет выполненных задач...",
         buttons: {
             add: "Добавить",
             done: "Выполнено",
@@ -19,8 +19,6 @@ export const messages = {
             done: "Выполненные"
         },
         auth: {
-            loginTitle: "Войти",
-            regTitle: "Регистрация",
             youLogin: "Вы вошли, как ",
             logout: "Выйти",
         },
@@ -36,7 +34,7 @@ export const messages = {
         createdBy: "Created by",
         enterTask: "Enter the task...",
         noTask: "Looks like you don't have any tasks yet...",
-        noDone: "Looks like you haven't accomplished a single task...",
+        noDone: "Looks like you don't have a done tasks...",
         buttons: {
             add: "Add",
             done: "Done",
@@ -50,8 +48,6 @@ export const messages = {
             done: "Done"
         },
         auth: {
-            loginTitle: "Sign in",
-            regTitle: "Sign up",
             youLogin: "You are logged in as ",
             logout: "Log out",
         },
