@@ -6,7 +6,7 @@ export const messages = {
         enterTask: "Введите задание...",
         noTask: "Похоже у вас еще нет задач...",
         noDone: "Похоже у вас нет выполненных задач...",
-        created: "Создано ",
+        created: "Создано в ",
         buttons: {
             add: "Добавить",
             done: "Выполнено",
