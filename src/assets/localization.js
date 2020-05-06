@@ -5,6 +5,7 @@ export const messages = {
         createdBy: "Создано",
         enterTask: "Введите задание...",
         noTask: "Похоже у вас еще нет задач...",
+        noDone: "Похоже вы не выполнили ни одной задачи...",
         buttons: {
             add: "Добавить",
             done: "Выполнено",
@@ -20,21 +21,8 @@ export const messages = {
         auth: {
             loginTitle: "Войти",
             regTitle: "Регистрация",
-            email: "E-mail",
-            password: "Пароль",
-            noAccount: "Нет аккаунта?",
-            reg: "Зарегистрируйтесь сейчас",
-            haveAccount: "Есть аккаунт?",
-            login: "Войдите сейчас",
-            loginBtn: "Войти",
-            regBtn: "Зарегистрироваться",
             youLogin: "Вы вошли, как ",
             logout: "Выйти",
-            error: "Неправильно введен e-mail или пароль",
-            userError: "Похоже такой пользователь уже существует",
-            emailError: "E-mail должен быть действительным",
-            emailReq: "Требуется e-mail",
-            passwordLen: "Пароль не должен быть менее 8 символов"
         },
         about: {
             title: "Что такое ToDo?",
@@ -48,6 +36,7 @@ export const messages = {
         createdBy: "Created by",
         enterTask: "Enter the task...",
         noTask: "Looks like you don't have any tasks yet...",
+        noDone: "Looks like you haven't accomplished a single task...",
         buttons: {
             add: "Add",
             done: "Done",
@@ -63,21 +52,8 @@ export const messages = {
         auth: {
             loginTitle: "Sign in",
             regTitle: "Sign up",
-            email: "E-mail",
-            password: "Password",
-            noAccount: "No account yet?",
-            reg: "Sign up now",
-            haveAccount: "Have an account already?",
-            login: "Sign in now",
-            loginBtn: "Sign in",
-            regBtn: "Sign Up",
             youLogin: "You are logged in as ",
             logout: "Log out",
-            error: "E-mail or password is incorrect",
-            userError: "Looks like this user already exists",
-            emailError: "E-mail must be valid",
-            emailReq: "E-mail required",
-            passwordLen: "Password must be at least 8 characters long"
         },
         about: {
             title: "What is ToDo?",
