@@ -29,7 +29,7 @@
                                 </v-text-field>
                             </v-form>
                             <p class="headline text-center" v-if="taskList.length === 0">{{ $t("noTask") }}</p>
-                            <TaskCard v-else v-for="(task, i) in taskList" :key="i" :id="task.id" :task="task.task"/>
+                            <TaskCard v-else v-for="(task, i) in taskList" :key="i" :id="task.id" :task="task.task" :created="task.createdOn"/>
                         </div>
                     </v-tab-item>
                     <v-tab-item>

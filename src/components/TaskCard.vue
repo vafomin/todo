@@ -2,6 +2,7 @@
     <v-card class="mx-auto my-4" width="70vw">
         <v-card-text>
             <p class="handle headline">{{ task }}</p>
+            <small>{{ $t("created") }} {{ created.toDate() | dateTransform }}</small>
         </v-card-text>
         <v-card-actions>
             <v-btn color="success" outlined @click="done">
@@ -19,11 +20,14 @@
 <script>
     import {mapActions} from 'vuex'
 
+    const dateFormat = require('dateformat');
+
     export default {
         name: "TaskCard",
         props: {
             id: String,
-            task: String
+            task: String,
+            created: Date
         },
         methods: {
             ...mapActions(["deleteTask", "doneTask"]),
@@ -36,6 +40,11 @@
                 let task = this.task;
                 this.doneTask({id, task})
             },
+        },
+        filters: {
+            dateTransform(date) {
+                return dateFormat(date, 'mmmm dS, yyyy h:MM:ss');
+            }
         }
     }
 </script>
