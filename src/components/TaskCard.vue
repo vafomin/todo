@@ -27,7 +27,7 @@
         props: {
             id: String,
             task: String,
-            created: Date
+            created: Object
         },
         methods: {
             ...mapActions(["deleteTask", "doneTask"]),
@@ -43,7 +43,7 @@
         },
         filters: {
             dateTransform(date) {
-                return dateFormat(date, 'mmmm dS, yyyy h:MM:ss');
+                return dateFormat(date, 'h:MM dd.mm.yyyy');
             }
         }
     }
