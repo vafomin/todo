@@ -15,27 +15,27 @@
                 <v-tabs-items v-model="tab">
                     <v-tab-item>
                         <div class="tab-item-wrapper">
-                            <v-form class="my-4" @submit.prevent="addTask({task})">
+                            <v-form class="my-4" @submit.prevent="newTask">
                                 <v-text-field
                                         v-model="task"
                                         :label="$t('enterTask')"
                                         solo
                                         style="margin: auto; width: 70vw;"> >
                                     <template slot="append">
-                                        <v-btn outlined @click="addTask({task})">
+                                        <v-btn outlined @click="newTask">
                                             {{ $t("buttons.add") }}
                                         </v-btn>
                                     </template>
                                 </v-text-field>
                             </v-form>
                             <p class="headline text-center" v-if="taskList.length === 0">{{ $t("noTask") }}</p>
-                            <TaskCard v-else v-for="(task, i) in taskList" :key="i" :task="task.task"/>
+                            <TaskCard v-else v-for="(task, i) in taskList" :key="i" :id="task.id" :task="task.task"/>
                         </div>
                     </v-tab-item>
                     <v-tab-item>
                         <div class="tab-item-wrapper">
                             <p class="headline text-center ma-10" v-if="doneList.length === 0">{{ $t("noDone") }}</p>
-                            <DoneCard v-else v-for="(task, i) in doneList" :key="i" :task="task.task"/>
+                            <DoneCard v-else v-for="(task, i) in doneList" :key="i" :id="task.id" :task="task.task"/>
                         </div>
                     </v-tab-item>
                 </v-tabs-items>
@@ -92,6 +92,13 @@
             async logout() {
                 await fb.auth.signOut();
                 this.cleanData();
+            },
+            newTask() {
+                if (this.task.length > 0) {
+                    let task = this.task;
+                    this.addTask({task});
+                    this.task = "";
+                }
             }
         }
     }
