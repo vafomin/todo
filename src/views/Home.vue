@@ -3,59 +3,53 @@
         <v-layout column="column" justify-center="justify-center" align-center="align-center">
             <v-flex xs12="xs12" md10="md10">
                 <p v-if="!isAuth" class="headline text-center">{{ $t("start") }}
-                    <a @click="openForm">{{ $t("buttons.login").toLowerCase() }}</a>
+                    <a @click="login">{{ $t("buttons.login").toLowerCase() }}</a>
                 </p>
-                <p v-else class="headline text-center">{{ $t("auth.youLogin") }} {{ user }}.
+                <p v-else class="headline text-center">{{ $t("auth.youLogin") }} {{ name }}.
                     <a @click="logout">{{ $t("auth.logout") }}</a>
                 </p>
                 <v-tabs v-model="tab" grow>
                     <v-tab>{{ $t("tabs.tasks") }}</v-tab>
-                    <v-tab :disabled="disabled">{{ $t("tabs.done") }}</v-tab>
+                    <v-tab disabled>{{ $t("tabs.done") }}</v-tab>
                 </v-tabs>
                 <v-tabs-items v-model="tab">
                     <v-tab-item>
                         <div class="tab-item-wrapper">
-                            <v-form class="my-4" @submit.prevent="addTask">
+                            <v-form class="my-4" @submit.prevent="addTask({task})">
                                 <v-text-field
                                         v-model="task"
                                         :label="$t('enterTask')"
                                         solo
                                         style="margin: auto; width: 70vw;"> >
                                     <template slot="append">
-                                        <v-btn outlined @click="addTask">
+                                        <v-btn outlined @click="addTask({task})">
                                             {{ $t("buttons.add") }}
                                         </v-btn>
                                     </template>
                                 </v-text-field>
                             </v-form>
                             <p class="headline text-center" v-if="taskList.length === 0">{{ $t("noTask") }}</p>
-                            <draggable v-else v-model="taskList" :animation="200" handle=".handle">
-                                <TaskCard v-for="task in taskList" :key="task" :task="task"/>
-                            </draggable>
+                            <TaskCard v-else v-for="(task, i) in taskList" :key="i" :task="task.task"/>
                         </div>
                     </v-tab-item>
                     <v-tab-item>
                         <div class="tab-item-wrapper">
-                            <DoneTaskCard v-for="task in doneList" :key="task" :task="task"/>
                         </div>
                     </v-tab-item>
                 </v-tabs-items>
             </v-flex>
         </v-layout>
-
-        <AuthForm/>
     </div>
 </template>
 
 <script>
-    import api from "../plugins/api"
+    import {mapState, mapMutations, mapActions} from 'vuex'
+    import firebase from 'firebase/app'
 
+    const fb = require('../../firebaseConfig.js');
     export default {
         components: {
             TaskCard: () => import("../components/TaskCard"),
-            DoneTaskCard: () => import("../components/DoneTaskCard"),
-            AuthForm: () => import("../components/AuthForm"),
-            draggable: () => import("vuedraggable")
         },
         data() {
             return {
@@ -64,47 +58,34 @@
             }
         },
         computed: {
+            ...mapState(["user", "tasks"]),
             isAuth() {
-                return this.$store.state.user != null;
+                return this.user != null;
             },
-            disabled() {
-                return this.$store.state.done.length <= 0;
+            name() {
+                return this.user.displayName;
             },
-            taskList: {
-                get() {
-                    return this.$store.state.tasks;
-                },
-                set(value) {
-                    this.$store.commit("updateTasks", value);
-                }
-            },
-            doneList() {
-                return this.$store.state.done;
-            },
-            user() {
-                return this.$store.state.user;
-            }
-        },
-        updated() {
-            if (this.isAuth) {
-                api.updTasks(this.user, this.taskList);
-                api.updDone(this.user, this.doneList);
+            taskList() {
+                return this.tasks;
             }
         },
         methods: {
-            openForm() {
-                this.$store.commit("setLoginForm", true);
+            ...mapMutations(["setUser"]),
+            ...mapActions(["addTask"]),
+            async login() {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                await fb.auth.signInWithPopup(provider)
+                    .then(r => {
+                        console.log(r);
+                        this.setUser(r.user);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
             },
-            addTask() {
-                if (this.task.length > 0) {
-                    this.$store.commit("setTasks", this.task);
-                    this.task = "";
-                }
-            },
-            logout() {
+            async logout() {
+                await fb.auth.signOut();
                 this.$store.commit("setUser", null);
-                this.$store.commit("updateTasks", []);
-                this.$store.commit("updateDone", []);
             }
         }
     }
