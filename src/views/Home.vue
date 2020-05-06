@@ -77,7 +77,7 @@
         },
         methods: {
             ...mapMutations(["setUser"]),
-            ...mapActions(["addTask"]),
+            ...mapActions(["addTask", "cleanData"]),
             async login() {
                 const provider = new firebase.auth.GoogleAuthProvider();
                 await fb.auth.signInWithPopup(provider)
@@ -91,7 +91,7 @@
             },
             async logout() {
                 await fb.auth.signOut();
-                this.$store.commit("setUser", null);
+                this.cleanData();
             }
         }
     }
