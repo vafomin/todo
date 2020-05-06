@@ -95,7 +95,7 @@
                 this.cleanData();
             },
             newTask() {
-                if (!this.task) {
+                if (this.task.trim().length > 0) {
                     let task = this.task;
                     this.addTask({task});
                     this.task = "";
