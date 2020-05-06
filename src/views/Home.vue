@@ -10,7 +10,7 @@
                 </p>
                 <v-tabs v-model="tab" grow>
                     <v-tab>{{ $t("tabs.tasks") }}</v-tab>
-                    <v-tab disabled>{{ $t("tabs.done") }}</v-tab>
+                    <v-tab>{{ $t("tabs.done") }}</v-tab>
                 </v-tabs>
                 <v-tabs-items v-model="tab">
                     <v-tab-item>
@@ -34,6 +34,8 @@
                     </v-tab-item>
                     <v-tab-item>
                         <div class="tab-item-wrapper">
+                            <p class="headline text-center ma-10" v-if="doneList.length === 0">{{ $t("noDone") }}</p>
+                            <DoneCard v-else v-for="(task, i) in doneList" :key="i" :task="task.task"/>
                         </div>
                     </v-tab-item>
                 </v-tabs-items>
@@ -50,6 +52,7 @@
     export default {
         components: {
             TaskCard: () => import("../components/TaskCard"),
+            DoneCard: () => import("../components/DoneTaskCard")
         },
         data() {
             return {
@@ -58,7 +61,7 @@
             }
         },
         computed: {
-            ...mapState(["user", "tasks"]),
+            ...mapState(["user", "tasks", "done"]),
             isAuth() {
                 return this.user != null;
             },
@@ -67,6 +70,9 @@
             },
             taskList() {
                 return this.tasks;
+            },
+            doneList() {
+                return this.done;
             }
         },
         methods: {
