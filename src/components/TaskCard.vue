@@ -43,7 +43,7 @@
         },
         filters: {
             dateTransform(date) {
-                return dateFormat(date, 'h:MM dd.mm.yyyy');
+                return dateFormat(date, 'HH:MM dd.mm.yyyy');
             }
         }
     }
