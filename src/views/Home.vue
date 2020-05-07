@@ -29,10 +29,18 @@
                                     </template>
                                 </v-text-field>
                             </v-form>
-                            <p class="headline text-center" v-if="taskList.length === 0">{{ $t("noTask") }}</p>
-                            <TaskCard v-else v-for="(task, i) in taskList" :key="i" :id="task.id"
-                                      :task="task.task"
-                                      :created="task.createdOn"/>
+                            <v-skeleton-loader
+                                    :loading="!isLoading"
+                                    :boilerplate="true"
+                                    class="mx-4 mx-sm-auto my-4"
+                                    width="75vw"
+                                    type="card, card"
+                            >
+                                <p class="headline text-center" v-if="taskList.length === 0">{{ $t("noTask") }}</p>
+                                <TaskCard v-else v-for="(task, i) in taskList" :key="i" :id="task.id"
+                                          :task="task.task"
+                                          :created="task.createdOn"/>
+                            </v-skeleton-loader>
                         </div>
                     </v-tab-item>
                     <v-tab-item>
@@ -66,9 +74,12 @@
             }
         },
         computed: {
-            ...mapState(["user", "tasks", "done"]),
+            ...mapState(["user", "load", "tasks", "done"]),
             isAuth() {
                 return this.user != null;
+            },
+            isLoading() {
+                return this.load;
             },
             name() {
                 return this.user.displayName;
@@ -80,14 +91,16 @@
                 return this.done;
             }
         },
+        mounted() {
+            this.setLoad(false);
+        },
         methods: {
-            ...mapMutations(["setUser"]),
+            ...mapMutations(["setUser", "setLoad"]),
             ...mapActions(["addTask", "cleanData"]),
             async login() {
                 const provider = new firebase.auth.GoogleAuthProvider();
                 await fb.auth.signInWithPopup(provider)
                     .then(r => {
-                        console.log(r);
                         this.setUser(r.user);
                     })
                     .catch(error => {
