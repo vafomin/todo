@@ -4,6 +4,9 @@
             <v-toolbar-title>{{ $t("app") }}</v-toolbar-title>
             <v-spacer></v-spacer>
 
+            <v-btn v-if="isAuth" icon>
+                <v-icon>settings</v-icon>
+            </v-btn>
             <v-btn icon @click="change_color()">
                 <v-icon>{{ icon }}</v-icon>
             </v-btn>
@@ -50,9 +53,14 @@
 
 <script>
     import i18n from "./plugins/i18n";
+    import {mapState} from 'vuex'
 
     export default {
         computed: {
+            ...mapState(["user"]),
+            isAuth() {
+                return this.user != null;
+            },
             icon: function () {
                 if (this.$vuetify.theme.dark) {
                     return "wb_sunny"
