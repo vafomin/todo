@@ -34,6 +34,7 @@ async function getDone(user) {
 fb.auth.onAuthStateChanged(user => {
     if (user) {
         store.commit("setUser", user);
+        store.commit("setLoad", false);
         getTasks(user).then(() => console.log("OK"));
         getDone(user).finally(() => {
             setTimeout(() => store.commit("setLoad", true), 500);
@@ -115,7 +116,8 @@ export const store = new Vuex.Store({
                     commit("delDone", index);
                 }
                 let uid = uuid.v4();
-                commit("addTask", {id: uid, task: task});
+                let createdOn = fb.firebase.firestore.Timestamp.now();
+                commit("addTask", {id: uid, task: task, createdOn: createdOn});
             }
         }
     },
