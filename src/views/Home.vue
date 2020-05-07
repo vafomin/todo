@@ -9,13 +9,19 @@
                     <a @click="logout">{{ $t("auth.logout") }}</a>
                 </p>
                 <v-tabs v-model="tab" grow>
+                    <v-tabs-slider v-if="tab === 1" color="green"></v-tabs-slider>
                     <v-tab>
                         <v-badge v-if="taskCount > 0" :content="taskCount">
                             {{ $t("tabs.tasks") }}
                         </v-badge>
                         <p v-else>{{ $t("tabs.tasks") }}</p>
                     </v-tab>
-                    <v-tab>{{ $t("tabs.done") }}</v-tab>
+                    <v-tab>
+                        <v-badge v-if="doneCount > 0" :content="doneCount" color="green">
+                            <div class="green--text">{{ $t("tabs.done") }}</div>
+                        </v-badge>
+                        <div v-else class="green--text">{{ $t("tabs.done") }}</div>
+                    </v-tab>
                 </v-tabs>
                 <v-tabs-items v-model="tab">
                     <v-tab-item>
