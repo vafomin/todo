@@ -7,29 +7,37 @@ const uuid = require("uuid");
 
 Vue.use(Vuex);
 
+async function getTasks(user) {
+    await fb.tasksCollection.where("authorId", "==", user.uid).orderBy("createdOn", "desc").onSnapshot(querySnapshot => {
+        let tasks = [];
+        querySnapshot.forEach(doc => {
+            let task = doc.data();
+            task.id = doc.id;
+            tasks.push(task);
+        });
+        store.commit("setTasks", tasks);
+    });
+}
+
+async function getDone(user) {
+    await fb.doneCollection.where("authorId", "==", user.uid).orderBy("createdOn", "desc").onSnapshot(querySnapshot => {
+        let done = [];
+        querySnapshot.forEach(doc => {
+            let task = doc.data();
+            task.id = doc.id;
+            done.push(task);
+        });
+        store.commit("setDone", done);
+    });
+}
+
 fb.auth.onAuthStateChanged(user => {
     if (user) {
         store.commit("setUser", user);
-        fb.tasksCollection.where("authorId", "==", user.uid).orderBy("createdOn", "desc").onSnapshot(querySnapshot => {
-            let tasks = [];
-            querySnapshot.forEach(doc => {
-                let task = doc.data();
-                task.id = doc.id;
-                tasks.push(task);
-            });
-            store.commit("setTasks", tasks);
+        getTasks(user).then(() => console.log("OK"));
+        getDone(user).finally(() => {
+            setTimeout(() => store.commit("setLoad", true), 500);
         });
-
-        fb.doneCollection.where("authorId", "==", user.uid).orderBy("createdOn", "desc").onSnapshot(querySnapshot => {
-            let done = [];
-            querySnapshot.forEach(doc => {
-                let task = doc.data();
-                task.id = doc.id;
-                done.push(task);
-            });
-            store.commit("setDone", done);
-        });
-
     }
 });
 
@@ -37,6 +45,7 @@ export const store = new Vuex.Store({
     state: {
         lang: undefined,
         user: null,
+        load: false,
         tasks: [],
         done: []
     },
@@ -112,6 +121,9 @@ export const store = new Vuex.Store({
         },
         setUser: (state, payload) => {
             state.user = payload;
+        },
+        setLoad: (state, payload) => {
+            state.load = payload;
         },
         setTasks: (state, payload) => {
             state.tasks = payload;
