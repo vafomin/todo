@@ -9,7 +9,12 @@
                     <a @click="logout">{{ $t("auth.logout") }}</a>
                 </p>
                 <v-tabs v-model="tab" grow>
-                    <v-tab>{{ $t("tabs.tasks") }}</v-tab>
+                    <v-tab>
+                        <v-badge v-if="taskCount > 0" :content="taskCount">
+                            {{ $t("tabs.tasks") }}
+                        </v-badge>
+                        <p v-else>{{ $t("tabs.tasks") }}</p>
+                    </v-tab>
                     <v-tab>{{ $t("tabs.done") }}</v-tab>
                 </v-tabs>
                 <v-tabs-items v-model="tab">
@@ -36,7 +41,7 @@
                                     width="75vw"
                                     type="card, card"
                             >
-                                <p class="headline text-center" v-if="taskList.length === 0">{{ $t("noTask") }}</p>
+                                <p class="headline text-center" v-if="taskCount === 0">{{ $t("noTask") }}</p>
                                 <TaskCard v-else v-for="(task, i) in taskList" :key="i" :id="task.id"
                                           :task="task.task"
                                           :created="task.createdOn"/>
@@ -45,7 +50,7 @@
                     </v-tab-item>
                     <v-tab-item>
                         <div class="tab-item-wrapper">
-                            <p class="headline text-center ma-10" v-if="doneList.length === 0">{{ $t("noDone") }}</p>
+                            <p class="headline text-center ma-10" v-if="doneCount === 0">{{ $t("noDone") }}</p>
                             <DoneCard v-else v-for="(task, i) in doneList" :key="i" :id="task.id"
                                       :task="task.task"
                                       :created="task.createdOn"/>
@@ -87,8 +92,14 @@
             taskList() {
                 return this.tasks;
             },
+            taskCount() {
+                return this.tasks.length;
+            },
             doneList() {
                 return this.done;
+            },
+            doneCount() {
+                return this.done.length;
             }
         },
         mounted() {
