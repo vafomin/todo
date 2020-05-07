@@ -38,6 +38,8 @@ fb.auth.onAuthStateChanged(user => {
         getDone(user).finally(() => {
             setTimeout(() => store.commit("setLoad", true), 500);
         });
+    } else {
+        setTimeout(() => store.commit("setLoad", true), 500);
     }
 });
 
@@ -65,7 +67,8 @@ export const store = new Vuex.Store({
                 });
             } else {
                 let uid = uuid.v4();
-                commit("addTask", {id: uid, task: task});
+                let createdOn = fb.firebase.firestore.Timestamp.now();
+                commit("addTask", {id: uid, task: task, createdOn: createdOn});
             }
         },
         async deleteTask({state, commit}, {id}) {
@@ -93,7 +96,8 @@ export const store = new Vuex.Store({
                     commit("delTask", index);
                 }
                 let uid = uuid.v4();
-                commit("addDone", {id: uid, task: task});
+                let createdOn = fb.firebase.firestore.Timestamp.now();
+                commit("addDone", {id: uid, task: task, createdOn: createdOn});
             }
         },
         async restoreTask({state, commit}, {id, task}) {
