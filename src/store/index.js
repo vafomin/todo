@@ -48,7 +48,7 @@ export const store = new Vuex.Store({
                 });
             } else {
                 let uid = uuid.v4();
-                let created = new Date();
+                let created = fb.firebase.firestore.Timestamp.now();
                 commit("addTask", {id: uid, task: task, createdOn: created});
             }
         },
@@ -77,7 +77,7 @@ export const store = new Vuex.Store({
                     commit("delTask", index);
                 }
                 let uid = uuid.v4();
-                let created = new Date();
+                let created = fb.firebase.firestore.Timestamp.now();
                 commit("addDone", {id: uid, task: task, createdOn: created});
             }
         },
@@ -96,7 +96,7 @@ export const store = new Vuex.Store({
                     commit("delDone", index);
                 }
                 let uid = uuid.v4();
-                let created = new Date();
+                let created = fb.firebase.firestore.Timestamp.now();
                 commit("addTask", {id: uid, task: task, createdOn: created});
             }
         },
