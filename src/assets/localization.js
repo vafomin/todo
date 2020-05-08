@@ -4,8 +4,8 @@ export const messages = {
         start: "Чтобы синхронизировать список задач на разных устройствах, вам необходимо ",
         createdBy: "Создано",
         enterTask: "Введите задание...",
-        noTask: "Похоже у вас еще нет задач...",
-        noDone: "Похоже у вас нет выполненных задач...",
+        noTask: "Задач нет...",
+        noDone: "Не выполнено ни одной задачи...",
         created: "Создано в ",
         done: "Выполнено в",
         buttons: {
@@ -35,8 +35,8 @@ export const messages = {
         start: "To synchronize the list of tasks on other devices, you need to ",
         createdBy: "Created by",
         enterTask: "Enter the task...",
-        noTask: "Looks like you don't have any tasks yet...",
-        noDone: "Looks like you don't have a done tasks...",
+        noTask: "Tasks no...",
+        noDone: "None of the tasks have been completed...",
         created: "Created at ",
         done: "Done at ",
         buttons: {
