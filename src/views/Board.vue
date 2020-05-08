@@ -63,7 +63,7 @@
             const uid = this.$route.params.id;
             fb.usersCollection.doc(uid).get().then((doc) => {
                 if (!doc.exists || !doc.data().isShare) {
-                    this.$router.replace("../notFound");
+                    this.$router.replace("../noAccess");
                 }
             });
             fb.tasksCollection.where("authorId", "==", uid).orderBy("createdOn", "desc").onSnapshot(querySnapshot => {
