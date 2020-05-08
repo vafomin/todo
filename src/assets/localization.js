@@ -26,10 +26,12 @@ export const messages = {
         },
         about: {
             title: "Что такое ToDo?",
-            body: "ToDo - простой список задач. Это Open-Source проект, исходники можно найти на"
+            body: "ToDo - ваша персональная доска задач.",
+            github: "Это Open-Source проект, исходники можно найти на"
         },
-        settings:{
+        settings: {
             title: "Настройки",
+            isShare: "Разрешать делиться вашей доской?",
             share: "Вы можете поделиться своей доской"
         },
         notFound: "Страница не найдена",
@@ -61,10 +63,12 @@ export const messages = {
         },
         about: {
             title: "What is ToDo?",
-            body: "ToDo is a simple list of tasks. This is an Open-Source project, the sources can be found at "
+            body: "ToDo is your personal task board.",
+            github: "This is an Open-Source project, the sources can be found at "
         },
-        settings:{
+        settings: {
             title: "Settings",
+            isShare: "Allow to share your board?",
             share: "You can share your board"
         },
         notFound: "Page not found",
