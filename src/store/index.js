@@ -1,54 +1,21 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
+import fire from '../plugins/fire'
 
 const fb = require('../../firebaseConfig');
 const uuid = require("uuid");
 
 Vue.use(Vuex);
 
-async function getTasks(user) {
-    await fb.tasksCollection.where("authorId", "==", user.uid).orderBy("createdOn", "desc").onSnapshot(querySnapshot => {
-        let tasks = [];
-        querySnapshot.forEach(doc => {
-            let task = doc.data();
-            task.id = doc.id;
-            tasks.push(task);
-        });
-        store.commit("setTasks", tasks);
-    });
-}
-
-async function getDone(user) {
-    await fb.doneCollection.where("authorId", "==", user.uid).orderBy("createdOn", "desc").onSnapshot(querySnapshot => {
-        let done = [];
-        querySnapshot.forEach(doc => {
-            let task = doc.data();
-            task.id = doc.id;
-            done.push(task);
-        });
-        store.commit("setDone", done);
-    });
-}
-
-async function getSettings(user) {
-    let uid = user.uid;
-    let isShare = false;
-    await fb.usersCollection.doc(uid).get().then((doc) => {
-        if (!doc.exists) {
-            fb.usersCollection.doc(uid).set({isShare});
-        }
-        store.commit("setSettings", doc.data())
-    });
-}
 
 fb.auth.onAuthStateChanged(user => {
     if (user) {
         store.commit("setUser", user);
         store.commit("setLoad", false);
-        getSettings(user).then(() => console.log("OK"));
-        getTasks(user).then(() => console.log("OK"));
-        getDone(user).finally(() => {
+        fire.getSettings(user).then(() => console.log("OK"));
+        fire.getTasks(user).then(() => console.log("OK"));
+        fire.getDone(user).finally(() => {
             setTimeout(() => store.commit("setLoad", true), 1000);
         });
     }
