@@ -109,7 +109,7 @@
             }
         },
         mounted() {
-            this.setLoad(false);
+            setTimeout(() => this.setLoad(true), 1000);
         },
         methods: {
             ...mapMutations(["setUser", "setLoad"]),
@@ -122,7 +122,7 @@
                     })
                     .catch(error => {
                         console.log(error);
-                    })
+                    });
             },
             async logout() {
                 await fb.auth.signOut();
