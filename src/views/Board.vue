@@ -28,7 +28,7 @@
                         <p class="headline text-center" v-if="taskCount === 0">{{ $t("noTask") }}</p>
                         <Card v-else v-for="(task, i) in taskList" :key="i" :id="task.id"
                               :task="task.task"
-                              :created="task.createdOn"/>
+                              :created="task.createdOn" :tab="tab"/>
                     </v-skeleton-loader>
                 </div>
             </v-tab-item>
@@ -37,7 +37,7 @@
                     <p class="headline text-center ma-10" v-if="doneCount === 0">{{ $t("noDone") }}</p>
                     <Card v-else v-for="(task, i) in doneList" :key="i" :id="task.id"
                           :task="task.task"
-                          :created="task.createdOn"/>
+                          :created="task.createdOn" :tab="tab"/>
                 </div>
             </v-tab-item>
         </v-tabs-items>
