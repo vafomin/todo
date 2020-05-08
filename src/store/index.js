@@ -37,10 +37,8 @@ fb.auth.onAuthStateChanged(user => {
         store.commit("setLoad", false);
         getTasks(user).then(() => console.log("OK"));
         getDone(user).finally(() => {
-            setTimeout(() => store.commit("setLoad", true), 500);
+            setTimeout(() => store.commit("setLoad", true), 1000);
         });
-    } else {
-        setTimeout(() => store.commit("setLoad", true), 500);
     }
 });
 
@@ -50,7 +48,9 @@ export const store = new Vuex.Store({
         user: null,
         load: false,
         tasks: [],
-        done: []
+        done: [],
+        boardTasks: [],
+        boardDone: []
     },
     actions: {
         cleanData({commit}) {
@@ -148,6 +148,12 @@ export const store = new Vuex.Store({
         },
         delDone: (state, payload) => {
             state.done.splice(payload, 1);
+        },
+        setBoardTasks: (state, payload) => {
+            state.boardTasks = payload;
+        },
+        setBoardDone: (state, payload) => {
+            state.boardDone = payload;
         }
     },
     plugins: [createPersistedState()]

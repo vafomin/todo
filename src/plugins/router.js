@@ -12,6 +12,11 @@ const router = new Router({
             component: () => import("../views/Home"),
         },
         {
+            path: "/b/:id",
+            name: "board",
+            component: () => import("../views/Board"),
+        },
+        {
             path: "*",
             name: "notFound",
             component: () => import("../views/NotFound"),
