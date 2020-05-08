@@ -28,6 +28,10 @@ export const messages = {
             title: "Что такое ToDo?",
             body: "ToDo - простой список задач. Это Open-Source проект, исходники можно найти на"
         },
+        settings:{
+            title: "Настройки",
+            share: "Вы можете поделиться своей доской"
+        },
         notFound: "Страница не найдена",
     },
     en: {
@@ -58,6 +62,10 @@ export const messages = {
         about: {
             title: "What is ToDo?",
             body: "ToDo is a simple list of tasks. This is an Open-Source project, the sources can be found at "
+        },
+        settings:{
+            title: "Settings",
+            share: "You can share your board"
         },
         notFound: "Page not found",
     }

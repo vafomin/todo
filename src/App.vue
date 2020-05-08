@@ -4,7 +4,7 @@
             <v-toolbar-title>{{ $t("app") }}</v-toolbar-title>
             <v-spacer></v-spacer>
 
-            <v-btn v-if="isAuth" icon>
+            <v-btn v-if="isAuth" @click.stop="settings = true" icon>
                 <v-icon>settings</v-icon>
             </v-btn>
             <v-btn icon @click="change_color()">
@@ -48,12 +48,21 @@
                 </v-card-text>
             </v-card>
         </v-dialog>
+
+        <v-dialog v-model="settings" max-width="500">
+            <v-card>
+                <v-card-title class="headline">{{ $t("settings.title") }}</v-card-title>
+                <v-card-text>
+                    <p>{{ $t("settings.share") }}:</p><a :href="url">{{ url }}</a>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </v-app>
 </template>
 
 <script>
     import i18n from "./plugins/i18n";
-    import {mapState} from 'vuex'
+    import {mapState, mapMutations} from 'vuex'
 
     export default {
         computed: {
@@ -61,33 +70,39 @@
             isAuth() {
                 return this.user != null;
             },
-            icon: function () {
+            icon() {
                 if (this.$vuetify.theme.dark) {
                     return "wb_sunny"
                 } else {
                     return "brightness_2"
                 }
             },
-            langIcon: function () {
+            langIcon() {
                 if (i18n.locale === "ru") {
                     return "🇷🇺"
                 } else {
                     return "🇺🇸"
                 }
+            },
+            url() {
+                return `https://thetodoapp.now.sh/b/${this.user.uid}`
             }
         },
         data() {
             return {
-                dialog: false
+                dialog: false,
+                settings: false,
             }
         },
-        mounted: function () {
+        mounted() {
+            this.setLoad(false);
             const theme = localStorage.getItem("useDarkTheme");
             if (theme) {
                 this.$vuetify.theme.dark = theme === "true";
             }
         },
         methods: {
+            ...mapMutations(["setLoad"]),
             change_color() {
                 this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
                 localStorage.setItem("useDarkTheme", this.$vuetify.theme.dark.toString())
@@ -96,6 +111,7 @@
                 i18n.locale = lang;
                 this.$store.commit("setLang", lang);
             }
-        },
+        }
+        ,
     }
 </script>
