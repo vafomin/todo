@@ -17,6 +17,11 @@ const router = new Router({
             component: () => import("../views/Board"),
         },
         {
+            path: "/noaccess",
+            name: "noAccess",
+            component: () => import("../views/NoAccess"),
+        },
+        {
             path: "*",
             name: "notFound",
             component: () => import("../views/NotFound"),

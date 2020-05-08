@@ -35,6 +35,7 @@ export const messages = {
             share: "Вы можете поделиться своей доской"
         },
         notFound: "Страница не найдена",
+        noAccess: "Нет доступа"
     },
     en: {
         app: "ToDo",
@@ -72,5 +73,6 @@ export const messages = {
             share: "You can share your board"
         },
         notFound: "Page not found",
+        noAccess: "No access"
     }
 };
