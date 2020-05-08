@@ -32,7 +32,7 @@
                                         :label="$t('enterTask')"
                                         solo
                                         class="mx-6 mx-sm-auto"
-                                        style="width: 70vw;"> >
+                                        style="width: 70vw;">
                                     <template slot="append">
                                         <v-btn outlined @click="newTask">
                                             {{ $t("buttons.add") }}
