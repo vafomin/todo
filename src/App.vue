@@ -68,7 +68,7 @@
         computed: {
             ...mapState(["user"]),
             isAuth() {
-                return this.user != null;
+                return this.user !== null;
             },
             icon() {
                 if (this.$vuetify.theme.dark) {
@@ -85,7 +85,9 @@
                 }
             },
             url() {
-                return `https://thetodoapp.now.sh/b/${this.user.uid}`
+                if (this.isAuth)
+                    return `https://thetodoapp.now.sh/b/${this.user.uid}`;
+                else return "no";
             }
         },
         data() {
