@@ -19,6 +19,7 @@ const db = firebase.firestore();
 
 const tasksCollection = db.collection('tasks');
 const doneCollection = db.collection('done');
+const usersCollection = db.collection('users');
 
 const auth = firebase.auth();
 
@@ -27,5 +28,6 @@ export {
     db,
     tasksCollection,
     doneCollection,
+    usersCollection,
     auth
 }
