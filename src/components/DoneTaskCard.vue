@@ -5,7 +5,7 @@
             <small>{{ $t("done") }} {{ created | dateTransform }}</small>
         </v-card-text>
         <v-card-actions>
-            <v-btn color="blue lighten-1" outlined @click="restore">
+            <v-btn color="blue lighten-1" outlined @click="restore" :disabled="disabled">
                 <v-icon>mdi-restore</v-icon>
                 {{ $t("buttons.restore") }}
             </v-btn>
@@ -17,19 +17,25 @@
     import {mapActions} from 'vuex'
 
     export default {
-        name: "TaskCard",
+        name: "DoneTaskCard",
         props: {
             id: String,
             task: String,
             created: undefined
         },
+        data() {
+            return {
+                disabled: false
+            }
+        },
         methods: {
             ...mapActions(["restoreTask"]),
 
             restore() {
+                this.disabled = true;
                 let id = this.id;
                 let task = this.task;
-                this.restoreTask({id, task});
+                this.restoreTask({id, task}).then(() => this.disabled = false);
             }
         }
     }
