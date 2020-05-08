@@ -61,6 +61,11 @@
         },
         mounted() {
             const uid = this.$route.params.id;
+            fb.usersCollection.doc(uid).get().then((doc) => {
+                if (!doc.exists || !doc.data().isShare) {
+                    this.$router.replace("../notFound");
+                }
+            });
             fb.tasksCollection.where("authorId", "==", uid).orderBy("createdOn", "desc").onSnapshot(querySnapshot => {
                 let tasks = [];
                 querySnapshot.forEach(doc => {
