@@ -31,10 +31,22 @@ async function getDone(user) {
     });
 }
 
+async function getSettings(user) {
+    let uid = user.uid;
+    let isShare = false;
+    await fb.usersCollection.doc(uid).get().then((doc) => {
+        if (!doc.exists) {
+            fb.usersCollection.doc(uid).set({isShare});
+        }
+        store.commit("setSettings", doc.data())
+    });
+}
+
 fb.auth.onAuthStateChanged(user => {
     if (user) {
         store.commit("setUser", user);
         store.commit("setLoad", false);
+        getSettings(user).then(() => console.log("OK"));
         getTasks(user).then(() => console.log("OK"));
         getDone(user).finally(() => {
             setTimeout(() => store.commit("setLoad", true), 1000);
@@ -50,7 +62,8 @@ export const store = new Vuex.Store({
         tasks: [],
         done: [],
         boardTasks: [],
-        boardDone: []
+        boardDone: [],
+        settings: {}
     },
     actions: {
         cleanData({commit}) {
@@ -119,6 +132,11 @@ export const store = new Vuex.Store({
                 let created = new Date();
                 commit("addTask", {id: uid, task: task, createdOn: created});
             }
+        },
+        async newSettings({state}) {
+            let uid = state.user.uid;
+            let isShare = state.settings.isShare;
+            await fb.usersCollection.doc(uid).set({isShare});
         }
     },
     mutations: {
@@ -154,6 +172,9 @@ export const store = new Vuex.Store({
         },
         setBoardDone: (state, payload) => {
             state.boardDone = payload;
+        },
+        setSettings: (state, payload) => {
+            state.settings = payload;
         }
     },
     plugins: [createPersistedState()]
