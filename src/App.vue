@@ -9,30 +9,17 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
 
-            <v-btn v-if="isAuth" @click.stop="settingsDialog = true" icon>
+            <v-btn @click.stop="openSettingsDialog" icon>
                 <v-icon>settings</v-icon>
             </v-btn>
-            <v-btn icon @click="change_color()">
-                <v-icon>{{ icon }}</v-icon>
-            </v-btn>
-            <v-menu left bottom>
-                <template v-slot:activator="{ on }">
-                    <v-btn icon v-on="on">
-                        {{ langIcon }}
-                    </v-btn>
-                </template>
-
-                <v-list>
-                    <v-list-item @click="change_lang('en')">
-                        <v-list-item-title>🇺🇸</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item @click="change_lang('ru')">
-                        <v-list-item-title>🇷🇺</v-list-item-title>
-                    </v-list-item>
-                </v-list>
-            </v-menu>
             <v-btn icon @click.stop="helpDialog = true">
                 <v-icon>mdi-help</v-icon>
+            </v-btn>
+            <v-btn v-if="!isAuth" outlined color="primary" @click="login">
+                {{ $t("buttons.login") }}
+            </v-btn>
+            <v-btn v-else outlined color="primary" @click="logout">
+                {{ $t("buttons.logout") }}
             </v-btn>
         </v-app-bar>
         <v-content>
@@ -54,67 +41,30 @@
                 </v-card-text>
             </v-card>
         </v-dialog>
-
-        <v-dialog v-model="settingsDialog" max-width="500">
-            <v-card>
-                <v-card-title class="headline">{{ $t("settings.title") }}</v-card-title>
-                <v-card-text>
-                    <v-switch v-model="isShare" :label="$t('settings.isShare')"></v-switch>
-                    <div v-if="isShare">
-                        <p>{{ $t("settings.share") }}:</p><a :href="url" target="_blank">{{ url }}</a>
-                    </div>
-                </v-card-text>
-            </v-card>
-        </v-dialog>
+        <Settings/>
     </v-app>
 </template>
 
 <script>
-    import i18n from "./plugins/i18n";
     import {mapState, mapMutations, mapActions} from 'vuex'
+    import firebase from 'firebase/app'
+
+    const fb = require('../firebaseConfig.js');
 
     export default {
-        computed: {
-            ...mapState(["user", "settings"]),
-            isAuth() {
-                return this.user !== null;
-            },
-            icon() {
-                if (this.$vuetify.theme.dark) {
-                    return "wb_sunny";
-                } else {
-                    return "brightness_2";
-                }
-            },
-            langIcon() {
-                if (i18n.locale === "ru")
-                    return "🇷🇺";
-                else {
-                    return "🇺🇸";
-                }
-            },
-            url() {
-                if (this.isAuth) {
-                    return `${process.env.VUE_APP_DOMAIN}/b/${this.user.uid}`;
-                } else {
-                    return "no";
-                }
-            },
-            isShare: {
-                get: function () {
-                    return this.settings.isShare;
-                },
-                set: function (v) {
-                    this.setSettings({isShare: v});
-                    this.newSettings();
-                }
-            }
+        components: {
+            Settings: () => import("./components/Settings")
         },
         data() {
             return {
                 helpDialog: false,
-                settingsDialog: false,
             }
+        },
+        computed: {
+            ...mapState(["user"]),
+            isAuth() {
+                return this.user != null;
+            },
         },
         mounted() {
             this.setLoad(false);
@@ -124,16 +74,24 @@
             }
         },
         methods: {
-            ...mapMutations(["setLoad", "setSettings"]),
-            ...mapActions(["newSettings", "cleanData"]),
-
-            change_color() {
-                this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-                localStorage.setItem("useDarkTheme", this.$vuetify.theme.dark.toString())
+            ...mapMutations(["setLoad", "setSettingsDialog", "setUser"]),
+            ...mapActions(["cleanData"]),
+            openSettingsDialog() {
+                this.setSettingsDialog(true);
             },
-            change_lang(lang) {
-                i18n.locale = lang;
-                this.$store.commit("setLang", lang);
+            async login() {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                await fb.auth.signInWithPopup(provider)
+                    .then(r => {
+                        this.setUser(r.user);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            },
+            async logout() {
+                await fb.auth.signOut();
+                this.cleanData();
             }
         }
     }

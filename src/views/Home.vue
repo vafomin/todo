@@ -2,12 +2,7 @@
     <div class="v-container pa-4">
         <v-layout column="column" justify-center="justify-center" align-center="align-center">
             <v-flex xs12="xs12" md10="md10">
-                <p v-if="!isAuth" class="headline text-center">{{ $t("start") }}
-                    <a @click="login">{{ $t("buttons.login").toLowerCase() }}</a>
-                </p>
-                <p v-else class="headline text-center">{{ $t("auth.youLogin") }} {{ name }}.
-                    <a @click="logout">{{ $t("auth.logout") }}</a>
-                </p>
+                <p v-if="!isAuth" class="headline text-center">{{ $t("start") }}</p>
                 <v-tabs v-model="tab" grow>
                     <v-tabs-slider v-if="tab === 1" color="green"></v-tabs-slider>
                     <v-tab>
@@ -47,7 +42,7 @@
                                     width="75vw"
                                     type="card, card"
                             >
-                                <p class="headline text-center" v-if="taskCount === 0">{{ $t("noTask") }}</p>
+                                <p class="headline text-center" v-if="taskCount === 0">{{ $t("tabs.noTask") }}</p>
                                 <TaskCard v-else v-for="(task, i) in taskList" :key="i" :id="task.id"
                                           :task="task.task"
                                           :created="task.createdOn"/>
@@ -56,7 +51,7 @@
                     </v-tab-item>
                     <v-tab-item>
                         <div class="tab-item-wrapper">
-                            <p class="headline text-center ma-10" v-if="doneCount === 0">{{ $t("noDone") }}</p>
+                            <p class="headline text-center ma-10" v-if="doneCount === 0">{{ $t("tabs.noDone") }}</p>
                             <DoneCard v-else v-for="(task, i) in doneList" :key="i" :id="task.id"
                                       :task="task.task"
                                       :created="task.createdOn"/>
@@ -70,9 +65,7 @@
 
 <script>
     import {mapState, mapMutations, mapActions} from 'vuex'
-    import firebase from 'firebase/app'
 
-    const fb = require('../../firebaseConfig.js');
     export default {
         components: {
             TaskCard: () => import("../components/TaskCard"),
@@ -92,9 +85,6 @@
             isLoading() {
                 return this.load;
             },
-            name() {
-                return this.user.displayName;
-            },
             taskList() {
                 return this.tasks;
             },
@@ -113,21 +103,7 @@
         },
         methods: {
             ...mapMutations(["setUser", "setLoad"]),
-            ...mapActions(["addTask", "cleanData"]),
-            async login() {
-                const provider = new firebase.auth.GoogleAuthProvider();
-                await fb.auth.signInWithPopup(provider)
-                    .then(r => {
-                        this.setUser(r.user);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
-            },
-            async logout() {
-                await fb.auth.signOut();
-                this.cleanData();
-            },
+            ...mapActions(["addTask"]),
             newTask() {
                 if (this.task.trim().length > 0) {
                     let task = this.task;
