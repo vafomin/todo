@@ -57,6 +57,9 @@
                 tab: null,
             }
         },
+        created() {
+            this.setLoad(false);
+        },
         mounted() {
             const uid = this.$route.params.id;
             if (this.user && this.user.uid === uid) {
@@ -85,6 +88,7 @@
                 });
                 this.setBoardDone(done);
             });
+            setTimeout(() => this.setLoad(true), 1000);
         },
         computed: {
             ...mapState(["load", "user", "boardTasks", "boardDone"]),
