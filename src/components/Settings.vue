@@ -13,7 +13,8 @@
                         <v-tooltip right>
                             <template v-slot:activator="{ on }">
                                 <v-btn icon v-on="on" @click="change_color()">
-                                    <v-icon>{{ icon }}</v-icon>
+                                    <v-icon v-if="!isDark" color="orange">wb_sunny</v-icon>
+                                    <v-icon v-else>brightness_2</v-icon>
                                 </v-btn>
                             </template>
                             <span>{{ $t("settings.tooltip") }}</span>
@@ -61,15 +62,11 @@
             isAuth() {
                 return this.user !== null;
             },
+            isDark() {
+                return this.$vuetify.theme.dark;
+            },
             name() {
                 return this.user.displayName.split(" ")[0];
-            },
-            icon() {
-                if (!this.$vuetify.theme.dark) {
-                    return "wb_sunny";
-                } else {
-                    return "brightness_2";
-                }
             },
             isLang() {
                 if (i18n.locale === "ru")
