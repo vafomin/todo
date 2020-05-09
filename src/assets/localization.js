@@ -1,11 +1,10 @@
 export const messages = {
     ru: {
         app: "ToDo",
-        start: "Чтобы синхронизировать список задач на разных устройствах, вам необходимо ",
+        start: "Чтобы синхронизировать список задач на разных устройствах, вам необходимо войти",
+        hello: "Привет",
         createdBy: "Создано",
         enterTask: "Введите задание...",
-        noTask: "Задач нет...",
-        noDone: "Не выполнено ни одной задачи...",
         created: "Создано в ",
         done: "Выполнено в",
         buttons: {
@@ -14,15 +13,14 @@ export const messages = {
             delete: "Удалить",
             restore: "Восстановить",
             home: "На главную",
-            login: "Войти"
+            login: "Войти",
+            logout: "Выйти"
         },
         tabs: {
             tasks: "Задания",
-            done: "Выполненные"
-        },
-        auth: {
-            youLogin: "Вы вошли, как ",
-            logout: "Выйти",
+            done: "Выполненные",
+            noTask: "Задач нет...",
+            noDone: "Не выполнено ни одной задачи..."
         },
         about: {
             title: "Что такое ToDo?",
@@ -31,7 +29,10 @@ export const messages = {
         },
         settings: {
             title: "Настройки",
-            isShare: "Разрешать делиться вашей доской?",
+            colorTheme: "Цветовая тема",
+            lang: "Язык",
+            tooltipLang: "Кликните для смены языка",
+            isShare: "Разрешить доступ к вашей доске?",
             share: "Вы можете поделиться своей доской"
         },
         notFound: "Страница не найдена",
@@ -39,11 +40,10 @@ export const messages = {
     },
     en: {
         app: "ToDo",
-        start: "To synchronize the list of tasks on other devices, you need to ",
+        start: "To synchronize the list of tasks on other devices, you need to sign in",
+        hello: "Hello",
         createdBy: "Created by",
         enterTask: "Enter the task...",
-        noTask: "Tasks no...",
-        noDone: "None of the tasks have been completed...",
         created: "Created at ",
         done: "Done at ",
         buttons: {
@@ -52,15 +52,14 @@ export const messages = {
             delete: "Delete",
             restore: "Restore",
             home: "Home",
-            login: "Sign In"
+            login: "Sign In",
+            logout: "Sign Out"
         },
         tabs: {
             tasks: "Tasks",
-            done: "Done"
-        },
-        auth: {
-            youLogin: "You are logged in as ",
-            logout: "Log out",
+            done: "Done",
+            noTask: "Tasks no...",
+            noDone: "None of the tasks have been completed..."
         },
         about: {
             title: "What is ToDo?",
@@ -69,7 +68,10 @@ export const messages = {
         },
         settings: {
             title: "Settings",
-            isShare: "Allow to share your board?",
+            colorTheme: "Color theme",
+            lang: "Language",
+            tooltipLang: "Click to change the language",
+            isShare: "Allow access to your board?",
             share: "You can share your board"
         },
         notFound: "Page not found",
