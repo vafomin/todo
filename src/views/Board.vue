@@ -17,24 +17,22 @@
         </v-tabs>
         <v-tabs-items v-model="tab">
             <v-tab-item>
-                <div class="tab-item-wrapper">
-                    <v-skeleton-loader
-                            :loading="!isLoading"
-                            :boilerplate="true"
-                            class="mx-4 mx-sm-auto my-4"
-                            width="75vw"
-                            type="card, card"
-                    >
-                        <p class="headline text-center" v-if="taskCount === 0">{{ $t("noTask") }}</p>
+                <div class="tab-item-wrapper pa-6">
+                    <div v-if="!isLoading" class="text-center">
+                        <v-progress-circular :size="70" indeterminate
+                                             color="primary"></v-progress-circular>
+                    </div>
+                    <div v-else>
+                        <p class="headline text-center" v-if="taskCount === 0">{{ $t("tabs.noTask") }}</p>
                         <Card v-else v-for="(task, i) in taskList" :key="i" :id="task.id"
                               :task="task.task"
-                              :created="task.createdOn" :tab="tab"/>
-                    </v-skeleton-loader>
+                              :created="task.createdOn"/>
+                    </div>
                 </div>
             </v-tab-item>
             <v-tab-item>
-                <div class="tab-item-wrapper">
-                    <p class="headline text-center ma-10" v-if="doneCount === 0">{{ $t("noDone") }}</p>
+                <div class="tab-item-wrapper pa-6">
+                    <p class="headline text-center" v-if="doneCount === 0">{{ $t("tabs.noDone") }}</p>
                     <Card v-else v-for="(task, i) in doneList" :key="i" :id="task.id"
                           :task="task.task"
                           :created="task.createdOn" :tab="tab"/>
@@ -61,6 +59,9 @@
         },
         mounted() {
             const uid = this.$route.params.id;
+            if (this.user && this.user.uid === uid) {
+                this.$router.replace("../");
+            }
             fb.usersCollection.doc(uid).get().then((doc) => {
                 if (!doc.exists || !doc.data().isShare) {
                     this.$router.replace("../noAccess");
@@ -84,10 +85,9 @@
                 });
                 this.setBoardDone(done);
             });
-            setTimeout(() => this.setLoad(true), 1000);
         },
         computed: {
-            ...mapState(["load", "boardTasks", "boardDone"]),
+            ...mapState(["load", "user", "boardTasks", "boardDone"]),
             isLoading() {
                 return this.load;
             },
