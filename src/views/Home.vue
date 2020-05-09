@@ -35,18 +35,16 @@
                                     </template>
                                 </v-text-field>
                             </v-form>
-                            <v-skeleton-loader
-                                    :loading="!isLoading"
-                                    :boilerplate="true"
-                                    class="mx-4 mx-sm-auto my-4"
-                                    width="75vw"
-                                    type="card, card"
-                            >
+                            <div v-if="!isLoading" class="text-center mb-6">
+                                <v-progress-circular :size="70" indeterminate
+                                                     color="primary"></v-progress-circular>
+                            </div>
+                            <div v-else>
                                 <p class="headline text-center" v-if="taskCount === 0">{{ $t("tabs.noTask") }}</p>
                                 <TaskCard v-else v-for="(task, i) in taskList" :key="i" :id="task.id"
                                           :task="task.task"
                                           :created="task.createdOn"/>
-                            </v-skeleton-loader>
+                            </div>
                         </div>
                     </v-tab-item>
                     <v-tab-item>
@@ -97,9 +95,6 @@
             doneCount() {
                 return this.done.length;
             }
-        },
-        mounted() {
-            setTimeout(() => this.setLoad(true), 1000);
         },
         methods: {
             ...mapMutations(["setUser", "setLoad"]),
