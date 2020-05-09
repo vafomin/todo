@@ -18,6 +18,8 @@ fb.auth.onAuthStateChanged(user => {
         fire.getDone(user).finally(() => {
             setTimeout(() => store.commit("setLoad", true), 1000);
         });
+    } else {
+        store.commit("setLoad", true);
     }
 });
 
@@ -38,6 +40,7 @@ export const store = new Vuex.Store({
             commit("setUser", null);
             commit("setTasks", []);
             commit("setDone", []);
+            commit("setSettings", {});
         },
         async addTask({state, commit}, {task}) {
             if (state.user !== null) {
