@@ -30,7 +30,8 @@ export const store = new Vuex.Store({
         done: [],
         boardTasks: [],
         boardDone: [],
-        settings: {}
+        settings: {},
+        isSettingsDialog: false
     },
     actions: {
         cleanData({commit}) {
@@ -142,6 +143,9 @@ export const store = new Vuex.Store({
         },
         setSettings: (state, payload) => {
             state.settings = payload;
+        },
+        setSettingsDialog: (state, payload) => {
+            state.isSettingsDialog = payload;
         }
     },
     plugins: [createPersistedState()]
