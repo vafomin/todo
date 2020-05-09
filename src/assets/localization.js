@@ -31,7 +31,7 @@ export const messages = {
             title: "Настройки",
             colorTheme: "Цветовая тема",
             lang: "Язык",
-            tooltipLang: "Кликните для смены языка",
+            tooltip: "Кликните, чтобы изменить",
             isShare: "Разрешить доступ к вашей доске?",
             share: "Вы можете поделиться своей доской"
         },
@@ -70,7 +70,7 @@ export const messages = {
             title: "Settings",
             colorTheme: "Color theme",
             lang: "Language",
-            tooltipLang: "Click to change the language",
+            tooltip: "Click to change",
             isShare: "Allow access to your board?",
             share: "You can share your board"
         },

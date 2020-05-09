@@ -10,19 +10,24 @@
                 </div>
                 <div>
                     <p class="body-1">{{ $t("settings.colorTheme") }}:
-                        <v-btn icon @click="change_color()">
-                            <v-icon>{{ icon }}</v-icon>
-                        </v-btn>
+                        <v-tooltip right>
+                            <template v-slot:activator="{ on }">
+                                <v-btn icon v-on="on" @click="change_color()">
+                                    <v-icon>{{ icon }}</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>{{ $t("settings.tooltip") }}</span>
+                        </v-tooltip>
                     </p>
                 </div>
                 <div>
                     <p class="body-1">{{ $t("settings.lang") }}:
-                        <v-tooltip bottom>
+                        <v-tooltip right>
                             <template v-slot:activator="{ on }">
                                 <b v-if="isLang === 'ru'" v-on="on" @click="change_lang('en')">русский 🇷🇺</b>
                                 <b v-else v-on="on" @click="change_lang('ru')">english 🇺🇸</b>
                             </template>
-                            <span>{{ $t("settings.tooltipLang") }}</span>
+                            <span>{{ $t("settings.tooltip") }}</span>
                         </v-tooltip>
                     </p>
                 </div>
@@ -57,7 +62,7 @@
                 return this.user !== null;
             },
             name() {
-                return this.user.displayName;
+                return this.user.displayName.split(" ")[0];
             },
             icon() {
                 if (!this.$vuetify.theme.dark) {
