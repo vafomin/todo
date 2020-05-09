@@ -1,7 +1,7 @@
 export const messages = {
     ru: {
         app: "ToDo",
-        start: "Чтобы синхронизировать список задач на разных устройствах, вам необходимо войти",
+        start: "Чтобы синхронизировать список задач, вам необходимо войти",
         hello: "Привет",
         createdBy: "Создано",
         enterTask: "Введите задание...",
@@ -40,7 +40,7 @@ export const messages = {
     },
     en: {
         app: "ToDo",
-        start: "To synchronize the list of tasks on other devices, you need to sign in",
+        start: "To synchronize the list of tasks, you need to sign in",
         hello: "Hello",
         createdBy: "Created by",
         enterTask: "Enter the task...",
@@ -58,8 +58,8 @@ export const messages = {
         tabs: {
             tasks: "Tasks",
             done: "Done",
-            noTask: "Tasks no...",
-            noDone: "None of the tasks have been completed..."
+            noTask: "No tasks...",
+            noDone: "No tasks done..."
         },
         about: {
             title: "What is ToDo?",
