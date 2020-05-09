@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
+import SecureLS from 'secure-ls';
 import fire from '../plugins/fire'
+
+let ls = new SecureLS({isCompression: false});
 
 const fb = require('../../firebaseConfig');
 const uuid = require("uuid");
@@ -41,6 +44,8 @@ export const store = new Vuex.Store({
             commit("setTasks", []);
             commit("setDone", []);
             commit("setSettings", {});
+            localStorage.removeItem("vuex");
+            localStorage.removeItem("_secure__ls__metadata");
         },
         async addTask({state, commit}, {task}) {
             if (state.user !== null) {
@@ -151,7 +156,14 @@ export const store = new Vuex.Store({
             state.isSettingsDialog = payload;
         }
     },
-    plugins: [createPersistedState()]
+    plugins: [createPersistedState({
+        paths: ['lang', 'user', 'tasks', 'done', 'settings'],
+        storage: {
+            getItem: (key) => ls.get(key),
+            setItem: (key, value) => ls.set(key, value),
+            removeItem: (key) => ls.remove(key),
+        }
+    })]
 });
 
 export default store;
