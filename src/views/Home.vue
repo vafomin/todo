@@ -3,19 +3,20 @@
         <v-layout column="column" justify-center="justify-center" align-center="align-center">
             <v-flex xs12="xs12" md10="md10">
                 <p v-if="!isAuth" class="headline text-center">{{ $t("start") }}</p>
+
                 <v-tabs v-model="tab" grow>
                     <v-tabs-slider v-if="tab === 1" color="green"></v-tabs-slider>
                     <v-tab>
                         <v-badge v-if="taskCount > 0" :content="taskCount">
-                            {{ $t("tabs.tasks") }}
+                            <span>{{ $t("tabs.tasks") }}</span>
                         </v-badge>
-                        <p v-else>{{ $t("tabs.tasks") }}</p>
+                        <span v-else>{{ $t("tabs.tasks") }}</span>
                     </v-tab>
                     <v-tab>
                         <v-badge v-if="doneCount > 0" :content="doneCount" color="green">
-                            <div class="green--text">{{ $t("tabs.done") }}</div>
+                            <span class="green--text">{{ $t("tabs.done") }}</span>
                         </v-badge>
-                        <div v-else class="green--text">{{ $t("tabs.done") }}</div>
+                        <span v-else class="green--text">{{ $t("tabs.done") }}</span>
                     </v-tab>
                 </v-tabs>
                 <v-tabs-items v-model="tab">
