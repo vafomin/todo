@@ -26,7 +26,7 @@
                         <p class="headline text-center" v-if="tasksBoardCount === 0">{{ $t("tabs.noTask") }}</p>
                         <Card v-else v-for="(task, i) in taskList" :key="i" :id="task.id"
                               :task="task.task"
-                              :created="task.createdOn"/>
+                              :created="task.createdOn" :tab="tab"/>
                     </div>
                 </div>
             </v-tab-item>
