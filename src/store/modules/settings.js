@@ -1,20 +1,29 @@
 const fb = require('../../../firebaseConfig');
 
 const state = {
-    settings: {},
+    settings: {
+        isShare: undefined,
+        showBadges: undefined
+    },
     isSettingsDialog: false
 };
 
 const actions = {
     async newSettings({state}, {uid}) {
-        let isShare = state.settings.isShare;
-        await fb.usersCollection.doc(uid).set({isShare});
+        let settings = state.settings;
+        await fb.usersCollection.doc(uid).set(settings);
     }
 };
 
 const mutations = {
     setSettings: (state, payload) => {
         state.settings = payload;
+    },
+    setIsShare: (state, payload) => {
+        state.settings.isShare = payload;
+    },
+    setShowBadges: (state, payload) => {
+        state.settings.showBadges = payload;
     },
     setSettingsDialog: (state, payload) => {
         state.isSettingsDialog = payload;

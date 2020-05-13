@@ -7,13 +7,13 @@
                 <v-tabs v-model="tab" grow>
                     <v-tabs-slider v-if="tab === 1" color="green"></v-tabs-slider>
                     <v-tab>
-                        <v-badge v-if="tasksCount > 0" :content="tasksCount">
+                        <v-badge v-if="showBadges && tasksCount > 0" :content="tasksCount">
                             <span>{{ $t("tabs.tasks") }}</span>
                         </v-badge>
                         <span v-else>{{ $t("tabs.tasks") }}</span>
                     </v-tab>
                     <v-tab>
-                        <v-badge v-if="doneCount > 0" :content="doneCount" color="green">
+                        <v-badge v-if="showBadges && doneCount > 0" :content="doneCount" color="green">
                             <span class="green--text">{{ $t("tabs.done") }}</span>
                         </v-badge>
                         <span v-else class="green--text">{{ $t("tabs.done") }}</span>
@@ -79,6 +79,7 @@
         computed: {
             ...mapState(["user", "load"]),
             ...mapState("app", ["tasks", "done"]),
+            ...mapState("settings", ["settings"]),
             ...mapGetters("app", ["tasksCount", "doneCount"]),
             isAuth() {
                 return this.user != null;
@@ -91,6 +92,9 @@
             },
             doneList() {
                 return this.done;
+            },
+            showBadges() {
+                return this.settings.showBadges;
             }
         },
         methods: {

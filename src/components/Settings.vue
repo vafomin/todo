@@ -37,6 +37,7 @@
                     <div v-if="isShare">
                         <p>{{ $t("settings.share") }}: <a :href="url" target="_blank">{{ url }}</a></p>
                     </div>
+                    <v-switch v-model="showBadges" :label="$t('settings.showBadges')"></v-switch>
                 </div>
             </v-card-text>
         </v-card>
@@ -87,25 +88,36 @@
                 return this.user.uid;
             },
             isShare: {
-                get: function () {
+                get() {
                     return this.settings.isShare;
                 },
-                set: function (v) {
-                    this.setSettings({isShare: v});
+                set(v) {
+                    this.setIsShare(v);
+                    let uid = this.getUID;
+                    this.newSettings({uid});
+                }
+            },
+            showBadges: {
+                get() {
+                    return this.settings.showBadges;
+                },
+                set(v) {
+                    this.setShowBadges(v);
                     let uid = this.getUID;
                     this.newSettings({uid});
                 }
             }
         },
         methods: {
-            ...mapMutations("settings", ["setSettings", "setSettingsDialog"]),
+            ...mapMutations("settings", ["setSettingsDialog", "setShowBadges", "setIsShare"]),
             ...mapActions("settings", ["newSettings"]),
             ...mapActions(["cleanData"]),
 
             change_color() {
                 this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
                 localStorage.setItem("useDarkTheme", this.$vuetify.theme.dark.toString())
-            },
+            }
+            ,
             change_lang(lang) {
                 i18n.locale = lang;
                 this.$store.commit("setLang", lang);
