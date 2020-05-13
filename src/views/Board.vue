@@ -3,13 +3,13 @@
         <v-tabs v-model="tab" grow>
             <v-tabs-slider v-if="tab === 1" color="green"></v-tabs-slider>
             <v-tab>
-                <v-badge v-if="taskCount > 0" :content="taskCount">
+                <v-badge v-if="tasksBoardCount > 0" :content="tasksBoardCount">
                     {{ $t("tabs.tasks") }}
                 </v-badge>
                 <p v-else>{{ $t("tabs.tasks") }}</p>
             </v-tab>
             <v-tab>
-                <v-badge v-if="doneCount > 0" :content="doneCount" color="green">
+                <v-badge v-if="doneBoardCount > 0" :content="doneBoardCount" color="green">
                     <div class="green--text">{{ $t("tabs.done") }}</div>
                 </v-badge>
                 <div v-else class="green--text">{{ $t("tabs.done") }}</div>
@@ -23,7 +23,7 @@
                                              color="primary"></v-progress-circular>
                     </div>
                     <div v-else>
-                        <p class="headline text-center" v-if="taskCount === 0">{{ $t("tabs.noTask") }}</p>
+                        <p class="headline text-center" v-if="tasksBoardCount === 0">{{ $t("tabs.noTask") }}</p>
                         <Card v-else v-for="(task, i) in taskList" :key="i" :id="task.id"
                               :task="task.task"
                               :created="task.createdOn"/>
@@ -32,7 +32,7 @@
             </v-tab-item>
             <v-tab-item>
                 <div class="tab-item-wrapper pa-6">
-                    <p class="headline text-center" v-if="doneCount === 0">{{ $t("tabs.noDone") }}</p>
+                    <p class="headline text-center" v-if="doneBoardCount === 0">{{ $t("tabs.noDone") }}</p>
                     <Card v-else v-for="(task, i) in doneList" :key="i" :id="task.id"
                           :task="task.task"
                           :created="task.createdOn" :tab="tab"/>
@@ -105,7 +105,8 @@
             },
         },
         methods: {
-            ...mapMutations(["setLoad", "setBoardTasks", "setBoardDone"]),
+            ...mapMutations(["setLoad"]),
+            ...mapMutations("app", ["setBoardTasks", "setBoardDone"]),
         }
     }
 </script>
