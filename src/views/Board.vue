@@ -43,7 +43,7 @@
 </template>
 
 <script>
-    import {mapState, mapMutations} from 'vuex'
+    import {mapState, mapMutations, mapGetters} from 'vuex'
 
     const fb = require('../../firebaseConfig');
 
@@ -91,22 +91,18 @@
             setTimeout(() => this.setLoad(true), 1000);
         },
         computed: {
-            ...mapState(["load", "user", "boardTasks", "boardDone"]),
+            ...mapState(["load", "user"]),
+            ...mapState("app", ["boardTasks", "boardDone"]),
+            ...mapGetters("app", ["tasksBoardCount", "doneBoardCount"]),
             isLoading() {
                 return this.load;
             },
             taskList() {
                 return this.boardTasks;
             },
-            taskCount() {
-                return this.boardTasks.length;
-            },
             doneList() {
                 return this.boardDone;
             },
-            doneCount() {
-                return this.boardDone.length;
-            }
         },
         methods: {
             ...mapMutations(["setLoad", "setBoardTasks", "setBoardDone"]),

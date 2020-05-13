@@ -50,7 +50,8 @@
     export default {
         name: "Settings",
         computed: {
-            ...mapState(["user", "settings", "isSettingsDialog"]),
+            ...mapState("settings", ["isSettingsDialog", "settings"]),
+            ...mapState(["user"]),
             isDialog: {
                 get() {
                     return this.isSettingsDialog;
@@ -82,19 +83,24 @@
                     return "no";
                 }
             },
+            getUID() {
+                return this.user.uid;
+            },
             isShare: {
                 get: function () {
                     return this.settings.isShare;
                 },
                 set: function (v) {
                     this.setSettings({isShare: v});
-                    this.newSettings();
+                    let uid = this.getUID;
+                    this.newSettings({uid});
                 }
             }
         },
         methods: {
-            ...mapMutations(["setSettings", "setSettingsDialog"]),
-            ...mapActions(["newSettings", "cleanData"]),
+            ...mapMutations("settings", ["setSettings", "setSettingsDialog"]),
+            ...mapActions("settings", ["newSettings"]),
+            ...mapActions(["cleanData"]),
 
             change_color() {
                 this.$vuetify.theme.dark = !this.$vuetify.theme.dark;

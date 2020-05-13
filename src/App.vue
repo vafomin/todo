@@ -74,7 +74,8 @@
             }
         },
         methods: {
-            ...mapMutations(["setLoad", "setSettingsDialog", "setUser"]),
+            ...mapMutations("settings", ["setSettingsDialog"]),
+            ...mapMutations(["setLoad", "setUser"]),
             ...mapActions(["cleanData"]),
             openSettingsDialog() {
                 this.setSettingsDialog(true);

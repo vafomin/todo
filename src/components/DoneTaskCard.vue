@@ -29,7 +29,7 @@
             }
         },
         methods: {
-            ...mapActions(["restoreTask"]),
+            ...mapActions("app", ["restoreTask"]),
 
             restore() {
                 this.disabled = true;

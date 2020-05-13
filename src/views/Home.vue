@@ -7,7 +7,7 @@
                 <v-tabs v-model="tab" grow>
                     <v-tabs-slider v-if="tab === 1" color="green"></v-tabs-slider>
                     <v-tab>
-                        <v-badge v-if="taskCount > 0" :content="taskCount">
+                        <v-badge v-if="tasksCount > 0" :content="tasksCount">
                             <span>{{ $t("tabs.tasks") }}</span>
                         </v-badge>
                         <span v-else>{{ $t("tabs.tasks") }}</span>
@@ -41,7 +41,7 @@
                                                      color="primary"></v-progress-circular>
                             </div>
                             <div v-else>
-                                <p class="headline text-center" v-if="taskCount === 0">{{ $t("tabs.noTask") }}</p>
+                                <p class="headline text-center" v-if="tasksCount === 0">{{ $t("tabs.noTask") }}</p>
                                 <TaskCard v-else v-for="(task, i) in taskList" :key="i" :id="task.id"
                                           :task="task.task"
                                           :created="task.createdOn"/>
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-    import {mapState, mapMutations, mapActions} from 'vuex'
+    import {mapState, mapMutations, mapActions, mapGetters} from 'vuex'
 
     export default {
         components: {
@@ -77,7 +77,9 @@
             }
         },
         computed: {
-            ...mapState(["user", "load", "tasks", "done"]),
+            ...mapState(["user", "load"]),
+            ...mapState("app", ["tasks", "done"]),
+            ...mapGetters("app", ["tasksCount", "doneCount"]),
             isAuth() {
                 return this.user != null;
             },
@@ -87,19 +89,13 @@
             taskList() {
                 return this.tasks;
             },
-            taskCount() {
-                return this.tasks.length;
-            },
             doneList() {
                 return this.done;
-            },
-            doneCount() {
-                return this.done.length;
             }
         },
         methods: {
             ...mapMutations(["setUser", "setLoad"]),
-            ...mapActions(["addTask"]),
+            ...mapActions("app", ["addTask"]),
             newTask() {
                 if (this.task.trim().length > 0) {
                     let task = this.task;

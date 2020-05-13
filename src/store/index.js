@@ -3,11 +3,12 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import SecureLS from 'secure-ls';
 import fire from '../plugins/fire'
+import settings from './modules/settings'
+import app from './modules/app'
 
 let ls = new SecureLS({isCompression: false});
 
 const fb = require('../../firebaseConfig');
-const uuid = require("uuid");
 
 Vue.use(Vuex);
 
@@ -30,90 +31,17 @@ export const store = new Vuex.Store({
     state: {
         lang: undefined,
         user: null,
-        load: false,
-        tasks: [],
-        done: [],
-        boardTasks: [],
-        boardDone: [],
-        settings: {},
-        isSettingsDialog: false
+        load: false
     },
     actions: {
         cleanData({commit}) {
             commit("setUser", null);
-            commit("setTasks", []);
-            commit("setDone", []);
-            commit("setSettings", {});
+            commit("app/setTasks", []);
+            commit("app/setDone", []);
+            commit("settings/setSettings", {});
             localStorage.removeItem("vuex");
             localStorage.removeItem("_secure__ls__metadata");
         },
-        async addTask({state, commit}, {task}) {
-            if (state.user !== null) {
-                const authorId = state.user.uid;
-                await fb.tasksCollection.add({
-                    task,
-                    authorId,
-                    createdOn: fb.firebase.firestore.Timestamp.now(),
-                });
-            } else {
-                let uid = uuid.v4();
-                let created = fb.firebase.firestore.Timestamp.now();
-                commit("addTask", {id: uid, task: task, createdOn: created});
-            }
-        },
-        async deleteTask({state, commit}, {id}) {
-            if (state.user !== null) {
-                await fb.tasksCollection.doc(id).delete();
-            } else {
-                const index = state.tasks.findIndex(n => n.id === id);
-                if (index !== -1) {
-                    commit("delTask", index);
-                }
-            }
-        },
-        async doneTask({state, commit}, {id, task}) {
-            if (state.user !== null) {
-                const authorId = state.user.uid;
-                await fb.doneCollection.add({
-                    task,
-                    authorId,
-                    createdOn: fb.firebase.firestore.Timestamp.now(),
-                });
-                await fb.tasksCollection.doc(id).delete();
-            } else {
-                const index = state.tasks.findIndex(n => n.id === id);
-                if (index !== -1) {
-                    commit("delTask", index);
-                }
-                let uid = uuid.v4();
-                let created = fb.firebase.firestore.Timestamp.now();
-                commit("addDone", {id: uid, task: task, createdOn: created});
-            }
-        },
-        async restoreTask({state, commit}, {id, task}) {
-            if (state.user !== null) {
-                const authorId = state.user.uid;
-                await fb.tasksCollection.add({
-                    task,
-                    authorId,
-                    createdOn: fb.firebase.firestore.Timestamp.now(),
-                });
-                await fb.doneCollection.doc(id).delete();
-            } else {
-                const index = state.done.findIndex(n => n.id === id);
-                if (index !== -1) {
-                    commit("delDone", index);
-                }
-                let uid = uuid.v4();
-                let created = fb.firebase.firestore.Timestamp.now();
-                commit("addTask", {id: uid, task: task, createdOn: created});
-            }
-        },
-        async newSettings({state}) {
-            let uid = state.user.uid;
-            let isShare = state.settings.isShare;
-            await fb.usersCollection.doc(uid).set({isShare});
-        }
     },
     mutations: {
         setLang: (state, payload) => {
@@ -125,36 +53,10 @@ export const store = new Vuex.Store({
         setLoad: (state, payload) => {
             state.load = payload;
         },
-        setTasks: (state, payload) => {
-            state.tasks = payload;
-        },
-        addTask: (state, payload) => {
-            state.tasks.unshift(payload);
-        },
-        delTask: (state, payload) => {
-            state.tasks.splice(payload, 1);
-        },
-        setDone: (state, payload) => {
-            state.done = payload;
-        },
-        addDone: (state, payload) => {
-            state.done.unshift(payload);
-        },
-        delDone: (state, payload) => {
-            state.done.splice(payload, 1);
-        },
-        setBoardTasks: (state, payload) => {
-            state.boardTasks = payload;
-        },
-        setBoardDone: (state, payload) => {
-            state.boardDone = payload;
-        },
-        setSettings: (state, payload) => {
-            state.settings = payload;
-        },
-        setSettingsDialog: (state, payload) => {
-            state.isSettingsDialog = payload;
-        }
+    },
+    modules: {
+        app,
+        settings
     },
     plugins: [createPersistedState({
         paths: ['lang', 'user', 'tasks', 'done', 'settings'],

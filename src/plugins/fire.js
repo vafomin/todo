@@ -10,7 +10,7 @@ async function getTasks(user) {
             task.id = doc.id;
             tasks.push(task);
         });
-        store.commit("setTasks", tasks);
+        store.commit("app/setTasks", tasks);
     });
 }
 
@@ -22,7 +22,7 @@ async function getDone(user) {
             task.id = doc.id;
             done.push(task);
         });
-        store.commit("setDone", done);
+        store.commit("app/setDone", done);
     });
 }
 
@@ -32,9 +32,9 @@ async function getSettings(user) {
     await fb.usersCollection.doc(uid).get().then(doc => {
         if (!doc.exists) {
             fb.usersCollection.doc(uid).set({isShare});
-            store.commit("setSettings", isShare);
+            store.commit("settings/setSettings", isShare);
         } else {
-            store.commit("setSettings", doc.data());
+            store.commit("settings/setSettings", doc.data());
         }
     });
 }

@@ -34,7 +34,7 @@
             }
         },
         methods: {
-            ...mapActions(["deleteTask", "doneTask"]),
+            ...mapActions("app", ["deleteTask", "doneTask"]),
             del() {
                 let id = this.id;
                 this.deleteTask({id});
