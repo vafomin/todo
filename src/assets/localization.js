@@ -33,7 +33,8 @@ export const messages = {
             lang: "Язык",
             tooltip: "Кликните, чтобы изменить",
             isShare: "Разрешить доступ к вашей доске?",
-            share: "Вы можете поделиться своей доской"
+            share: "Вы можете поделиться своей доской",
+            showBadges: "Показывать значки?"
         },
         notFound: "Страница не найдена",
         noAccess: "Нет доступа"
@@ -72,7 +73,8 @@ export const messages = {
             lang: "Language",
             tooltip: "Click to change",
             isShare: "Allow access to your board?",
-            share: "You can share your board"
+            share: "You can share your board",
+            showBadges: "Show badges?"
         },
         notFound: "Page not found",
         noAccess: "No access"
