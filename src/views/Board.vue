@@ -65,11 +65,6 @@
             if (this.user && this.user.uid === uid) {
                 this.$router.replace("../");
             }
-            fb.usersCollection.doc(uid).get().then((doc) => {
-                if (!doc.exists || !doc.data().isShare) {
-                    this.$router.replace("../noAccess");
-                }
-            });
             fb.tasksCollection.where("authorId", "==", uid).orderBy("createdOn", "desc").onSnapshot(querySnapshot => {
                 let tasks = [];
                 querySnapshot.forEach(doc => {

@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
 
+const fb = require('../../firebaseConfig');
+
 Vue.use(Router);
 
 const router = new Router({
@@ -27,6 +29,17 @@ const router = new Router({
             component: () => import("../views/NotFound"),
         }
     ]
+});
+
+router.beforeEach((to, from, next) => {
+    if (to.name === "board") {
+        let id = to.params.id;
+        fb.usersCollection.doc(id).get().then((doc) => {
+            if (!doc.exists || !doc.data().isShare) {
+                next({name: "noAccess"});
+            } else next();
+        });
+    } else next()
 });
 
 export default router;
