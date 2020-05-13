@@ -21,40 +21,36 @@
                 </v-tabs>
                 <v-tabs-items v-model="tab">
                     <v-tab-item>
-                        <div class="tab-item-wrapper">
-                            <v-form class="my-4" @submit.prevent="newTask">
-                                <v-text-field
-                                        v-model="task"
-                                        :label="$t('enterTask')"
-                                        solo
-                                        class="mx-6 mx-sm-auto"
-                                        style="width: 70vw;">
-                                    <template slot="append">
-                                        <v-btn outlined @click="newTask">
-                                            {{ $t("buttons.add") }}
-                                        </v-btn>
-                                    </template>
-                                </v-text-field>
-                            </v-form>
-                            <div v-if="!isLoading" class="text-center mb-6">
-                                <v-progress-circular :size="70" indeterminate
-                                                     color="primary"></v-progress-circular>
-                            </div>
-                            <div v-else>
-                                <p class="headline text-center" v-if="tasksCount === 0">{{ $t("tabs.noTask") }}</p>
-                                <TaskCard v-else v-for="(task, i) in taskList" :key="i" :id="task.id"
-                                          :task="task.task"
-                                          :created="task.createdOn"/>
-                            </div>
+                        <v-form class="my-4" @submit.prevent="newTask">
+                            <v-text-field
+                                    v-model="task"
+                                    :label="$t('enterTask')"
+                                    solo
+                                    class="mx-6 mx-sm-auto"
+                                    style="width: 70vw;">
+                                <template slot="append">
+                                    <v-btn outlined @click="newTask">
+                                        {{ $t("buttons.add") }}
+                                    </v-btn>
+                                </template>
+                            </v-text-field>
+                        </v-form>
+                        <div v-if="!isLoading" class="text-center mb-6">
+                            <v-progress-circular :size="70" indeterminate
+                                                 color="primary"></v-progress-circular>
                         </div>
-                    </v-tab-item>
-                    <v-tab-item>
-                        <div class="tab-item-wrapper">
-                            <p class="headline text-center ma-10" v-if="doneCount === 0">{{ $t("tabs.noDone") }}</p>
-                            <DoneCard v-else v-for="(task, i) in doneList" :key="i" :id="task.id"
+                        <div v-else>
+                            <p class="headline text-center" v-if="tasksCount === 0">{{ $t("tabs.noTask") }}</p>
+                            <TaskCard v-else v-for="(task, i) in taskList" :key="i" :id="task.id"
                                       :task="task.task"
                                       :created="task.createdOn"/>
                         </div>
+                    </v-tab-item>
+                    <v-tab-item>
+                        <p class="headline text-center" v-if="doneCount === 0">{{ $t("tabs.noDone") }}</p>
+                        <DoneCard v-else v-for="(task, i) in doneList" :key="i" :id="task.id"
+                                  :task="task.task"
+                                  :created="task.createdOn"/>
                     </v-tab-item>
                 </v-tabs-items>
             </v-flex>
@@ -110,10 +106,3 @@
         }
     }
 </script>
-
-<style>
-    .tab-item-wrapper {
-        width: 100vw;
-        overflow-y: auto;
-    }
-</style>
