@@ -37,8 +37,8 @@
                     <div v-if="isShare">
                         <p>{{ $t("settings.share") }}: <a :href="url" target="_blank">{{ url }}</a></p>
                     </div>
-                    <v-switch v-model="showBadges" :label="$t('settings.showBadges')"></v-switch>
                 </div>
+                <v-switch v-model="showBadges" :label="$t('settings.showBadges')"></v-switch>
             </v-card-text>
         </v-card>
     </v-dialog>
@@ -85,7 +85,8 @@
                 }
             },
             getUID() {
-                return this.user.uid;
+                if (this.user) return this.user.uid;
+                else return null;
             },
             isShare: {
                 get() {
@@ -104,7 +105,7 @@
                 set(v) {
                     this.setShowBadges(v);
                     let uid = this.getUID;
-                    this.newSettings({uid});
+                    if (uid !== null) this.newSettings({uid});
                 }
             }
         },
