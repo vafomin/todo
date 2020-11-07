@@ -1,7 +1,7 @@
 <template>
   <div class="v-container mx-16 px-16">
     <p v-if="!isAuth" class="headline text-center">{{ $t("start") }}</p>
-    <div v-if="!isLoading" class="text-center mb-6">
+    <div v-if="!isLoading" class="text-center ma-16 pa-16">
       <v-progress-circular :size="70" indeterminate
                            color="primary"></v-progress-circular>
     </div>
