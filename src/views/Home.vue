@@ -42,6 +42,7 @@
               <TaskCard v-else v-for="(task, i) in taskList" :key="i" :id="task.id"
                         :task="task.task"
                         :tag="task.tag"
+                        :tagColor="task.tagColor"
                         :created="task.createdOn"/>
             </div>
           </v-tab-item>
@@ -50,6 +51,7 @@
             <DoneCard v-else v-for="(task, i) in doneList" :key="i" :id="task.id"
                       :task="task.task"
                       :tag="task.tag"
+                      :tagColor="task.tagColor"
                       :created="task.createdOn"/>
           </v-tab-item>
         </v-tabs-items>

@@ -2,7 +2,7 @@
   <v-card class="mx-4 mx-sm-auto my-4" width="75vw">
     <v-card-text>
       <p class="headline">
-        <v-chip v-if="tag !== ''" class="ma-2" color="primary" outlined >{{ tag }}</v-chip>
+        <v-chip v-if="tag !== ''" class="ma-2" :color="tagColor" outlined>{{ tag }}</v-chip>
         {{ task }}
       </p>
       <small>{{ $t("done") }} {{ created | dateTransform }}</small>
@@ -25,6 +25,7 @@ export default {
     id: String,
     task: String,
     tag: String,
+    tagColor: String,
     created: undefined
   },
   data() {
@@ -40,7 +41,8 @@ export default {
       let id = this.id;
       let task = this.task;
       let tag = this.tag;
-      this.restoreTask({id, task, tag}).then(() => this.disabled = false);
+      let tagColor = this.tagColor;
+      this.restoreTask({id, task, tag, tagColor}).then(() => this.disabled = false);
     }
   }
 }

@@ -2,7 +2,7 @@
   <v-card class="mx-4 mx-sm-auto my-4" width="75vw">
     <v-card-text>
       <p class="handle headline">
-        <v-chip v-if="tag !== ''" class="ma-2" close color="primary" outlined @click:close="delTag">{{ tag }}</v-chip>
+        <v-chip v-if="tag !== ''" class="ma-2" close :color="tagColor" outlined @click:close="delTag">{{ tag }}</v-chip>
         {{ task }}
       </p>
       <small>{{ $t("created") }} {{ created | dateTransform }}</small>
@@ -31,6 +31,13 @@
                 :label="$t('tagName')"
                 solo
             />
+
+            <v-color-picker
+                class="ma-2"
+                v-model="myTagColor"
+                hide-canvas
+            ></v-color-picker>
+
           </v-form>
         </v-card-text>
         <v-divider></v-divider>
@@ -54,6 +61,7 @@ export default {
     id: String,
     task: String,
     tag: String,
+    tagColor: String,
     created: undefined
   },
   mounted() {
@@ -63,7 +71,8 @@ export default {
     return {
       disabled: false,
       dialog: false,
-      tagName: ""
+      tagName: "",
+      myTagColor: "#03A9F4"
     }
   },
   methods: {
@@ -78,19 +87,22 @@ export default {
       let id = this.id;
       let task = this.task;
       let tag = this.tag;
-      this.doneTask({id, task, tag}).then(() => this.disabled = false);
+      let tagColor = this.tagColor;
+      this.doneTask({id, task, tag, tagColor}).then(() => this.disabled = false);
     },
     newTag() {
       let id = this.id;
       let tag = this.tagName.trim();
-      this.updTag({id, tag});
+      let tagColor = this.myTagColor;
+      this.updTag({id, tag, tagColor});
       this.tagName = "";
       this.dialog = false;
     },
     delTag() {
       let id = this.id;
       let tag = "";
-      this.updTag({id, tag});
+      let tagColor = "#03A9F4"
+      this.updTag({id, tag, tagColor});
     }
   }
 }
