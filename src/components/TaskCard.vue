@@ -66,9 +66,6 @@ export default {
     tagColor: String,
     created: undefined
   },
-  mounted() {
-    console.log(this.tag);
-  },
   data() {
     return {
       disabled: false,
