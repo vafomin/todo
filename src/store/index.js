@@ -17,11 +17,10 @@ fb.auth.onAuthStateChanged(user => {
     if (user) {
         store.commit("setUser", user);
         store.commit("setLoad", false);
-        fire.getSettings(user).then(() => console.log("OK"));
-        fire.getTasks(user).then(() => console.log("OK"));
-        fire.getDone(user).finally(() => {
-            setTimeout(() => store.commit("setLoad", true), 1000);
-        });
+        fire.getSettings(user).then();
+        fire.getDone(user).then();
+        fire.getTasks(user).then();
+        setTimeout(() => store.commit("setLoad", true), 1000);
     } else {
         store.commit("setLoad", true);
     }
