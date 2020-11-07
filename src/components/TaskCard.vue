@@ -15,7 +15,8 @@
         <v-icon>mdi-delete</v-icon>
       </v-btn>
       <v-btn color="primary" outlined @click="dialog = true" :disabled="disabled">
-        <v-icon>mdi-tag-plus</v-icon>
+        <v-icon v-if="tag !== ''">mdi-tag-text</v-icon>
+        <v-icon v-else>mdi-tag-plus</v-icon>
       </v-btn>
     </v-card-actions>
     <v-dialog v-model="dialog" width="500">
@@ -25,11 +26,11 @@
         </v-card-title>
         <v-card-text>
           <v-form class="my-4" @submit.prevent="newTag">
-          <v-text-field
-              v-model="tagName"
-              :label="$t('tagName')"
-              solo
-          />
+            <v-text-field
+                v-model="tagName"
+                :label="$t('tagName')"
+                solo
+            />
           </v-form>
         </v-card-text>
         <v-divider></v-divider>
