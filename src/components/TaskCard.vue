@@ -31,13 +31,15 @@
                 :label="$t('tagName')"
                 solo
             />
-
             <v-color-picker
-                class="ma-2"
+                width="100%"
                 v-model="myTagColor"
+                mode="hexa"
                 hide-canvas
-            ></v-color-picker>
-
+                hide-inputs
+                show-swatches
+                :swatches="swatches"
+            />
           </v-form>
         </v-card-text>
         <v-divider></v-divider>
@@ -72,7 +74,17 @@ export default {
       disabled: false,
       dialog: false,
       tagName: "",
-      myTagColor: "#03A9F4"
+      myTagColor: "#03A9F4",
+      swatches: [
+        ["#F44336", "#CDDC39"],
+        ["#E91E63", "#FFEB3B"],
+        ["#9C27B0", "#FFC107"],
+        ["#673AB7", "#FF9800"],
+        ["#3F51B5", "#FF5722"],
+        ["#2196F3", "#795548"],
+        ["#03A9F4", "#607D8B"],
+        ["#00BCD4", "#9E9E9E"],
+      ],
     }
   },
   methods: {
@@ -90,9 +102,10 @@ export default {
       let tagColor = this.tagColor;
       this.doneTask({id, task, tag, tagColor}).then(() => this.disabled = false);
     },
-    openDialog(){
+    openDialog() {
       this.dialog = true;
       this.tagName = this.tag;
+      this.myTagColor = this.tagColor;
     },
     newTag() {
       let id = this.id;
@@ -100,6 +113,7 @@ export default {
       let tagColor = this.myTagColor;
       this.updTag({id, tag, tagColor});
       this.tagName = "";
+      this.myTagColor = "#03A9F4";
       this.dialog = false;
     },
     delTag() {
