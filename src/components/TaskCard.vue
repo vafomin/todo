@@ -21,19 +21,19 @@
     <v-dialog v-model="dialog" width="500">
       <v-card>
         <v-card-title class="headline">
-          Добавить тег
+          {{ $t("addTag") }}
         </v-card-title>
         <v-card-text>
           <v-text-field
               v-model="tagName"
-              label="Название тега"
+              :label="$t('tagName')"
               solo
           />
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
           <v-btn color="primary" text @click="newTag">
-            Добавить тег
+            {{ $t("addTag") }}
           </v-btn>
         </v-card-actions>
       </v-card>
