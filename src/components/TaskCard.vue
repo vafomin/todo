@@ -24,11 +24,13 @@
           {{ $t("addTag") }}
         </v-card-title>
         <v-card-text>
+          <v-form class="my-4" @submit.prevent="newTag">
           <v-text-field
               v-model="tagName"
               :label="$t('tagName')"
               solo
           />
+          </v-form>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
