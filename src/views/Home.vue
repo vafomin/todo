@@ -24,10 +24,8 @@
             <v-form class="my-4" @submit.prevent="newTask">
               <v-text-field
                   v-model="task"
-                  :label="$t('enterTask')"
                   solo
-                  class="mx-6 mx-sm-auto"
-                  style="width: 70vw;">
+                  :label="$t('enterTask')">
                 <template slot="append">
                   <v-btn outlined @click="newTask">
                     {{ $t("buttons.add") }}
@@ -43,6 +41,7 @@
               <p class="headline text-center" v-if="tasksCount === 0">{{ $t("tabs.noTask") }}</p>
               <TaskCard v-else v-for="(task, i) in taskList" :key="i" :id="task.id"
                         :task="task.task"
+                        :tag="task.tag"
                         :created="task.createdOn"/>
             </div>
           </v-tab-item>
@@ -50,6 +49,7 @@
             <p class="headline text-center" v-if="doneCount === 0">{{ $t("tabs.noDone") }}</p>
             <DoneCard v-else v-for="(task, i) in doneList" :key="i" :id="task.id"
                       :task="task.task"
+                      :tag="task.tag"
                       :created="task.createdOn"/>
           </v-tab-item>
         </v-tabs-items>

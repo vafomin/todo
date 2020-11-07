@@ -1,7 +1,10 @@
 <template>
   <v-card class="mx-4 mx-sm-auto my-4" width="75vw">
     <v-card-text>
-      <p class="headline">{{ task }}</p>
+      <p class="headline">
+        <v-chip v-if="tag !== ''" class="ma-2" color="primary" outlined >{{ tag }}</v-chip>
+        {{ task }}
+      </p>
       <small>{{ $t("done") }} {{ created | dateTransform }}</small>
     </v-card-text>
     <v-card-actions>
@@ -21,6 +24,7 @@ export default {
   props: {
     id: String,
     task: String,
+    tag: String,
     created: undefined
   },
   data() {
@@ -35,7 +39,8 @@ export default {
       this.disabled = true;
       let id = this.id;
       let task = this.task;
-      this.restoreTask({id, task}).then(() => this.disabled = false);
+      let tag = this.tag;
+      this.restoreTask({id, task, tag}).then(() => this.disabled = false);
     }
   }
 }
