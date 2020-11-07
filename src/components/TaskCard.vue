@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-4 mx-sm-auto my-4" width="75vw">
+  <v-card class="mx-4 mx-sm-auto my-4">
     <v-card-text>
       <p class="handle headline">
         <v-chip v-if="tag !== ''" class="ma-2" close :color="tagColor" outlined @click:close="delTag">{{ tag }}</v-chip>
