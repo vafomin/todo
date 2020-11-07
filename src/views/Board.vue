@@ -25,7 +25,7 @@
           <div v-else>
             <p class="headline text-center" v-if="tasksBoardCount === 0">{{ $t("tabs.noTask") }}</p>
             <Card v-else v-for="(task, i) in taskList" :key="i" :id="task.id"
-                  :task="task.task"
+                  :task="task.task" :tag="task.tag" :tagColor="task.tagColor"
                   :created="task.createdOn" :tab="tab"/>
           </div>
         </div>
@@ -34,7 +34,7 @@
         <div class="tab-item-wrapper pa-6">
           <p class="headline text-center" v-if="doneBoardCount === 0">{{ $t("tabs.noDone") }}</p>
           <Card v-else v-for="(task, i) in doneList" :key="i" :id="task.id"
-                :task="task.task"
+                :task="task.task" :tag="task.tag" :tagColor="task.tagColor"
                 :created="task.createdOn" :tab="tab"/>
         </div>
       </v-tab-item>
