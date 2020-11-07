@@ -11,7 +11,6 @@ export const messages = {
         tagName: "Название тега",
         buttons: {
             add: "Добавить",
-            restore: "Восстановить",
             home: "На главную",
             login: "Войти",
             logout: "Выйти"
@@ -51,7 +50,6 @@ export const messages = {
         tagName: "Tag Name",
         buttons: {
             add: "Add",
-            restore: "Restore",
             home: "Home",
             login: "Sign In",
             logout: "Sign Out"
