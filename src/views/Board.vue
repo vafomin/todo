@@ -61,10 +61,8 @@ export default {
     this.setLoad(false);
   },
   mounted() {
-    const uid = this.$route.params.id;
-    if (this.user && this.user.uid === uid) {
-      this.$router.replace("../");
-    }
+    const uid = this.tkn;
+
     fb.tasksCollection.where("authorId", "==", uid).orderBy("createdOn", "desc").onSnapshot(querySnapshot => {
       let tasks = [];
       querySnapshot.forEach(doc => {
@@ -74,6 +72,7 @@ export default {
       });
       this.setBoardTasks(tasks);
     });
+
     fb.doneCollection.where("authorId", "==", uid).orderBy("createdOn", "desc").onSnapshot(querySnapshot => {
       let done = [];
       querySnapshot.forEach(doc => {
@@ -86,7 +85,7 @@ export default {
     setTimeout(() => this.setLoad(true), 1000);
   },
   computed: {
-    ...mapState(["load", "user"]),
+    ...mapState(["load", "user", "tkn"]),
     ...mapState("app", ["boardTasks", "boardDone"]),
     ...mapGetters("app", ["tasksBoardCount", "doneBoardCount"]),
     isLoading() {

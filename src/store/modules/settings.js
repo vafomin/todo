@@ -3,7 +3,8 @@ const fb = require('../../../firebaseConfig');
 const state = {
     settings: {
         isShare: undefined,
-        showBadges: undefined
+        showBadges: undefined,
+        url: ""
     },
     isSettingsDialog: false
 };

@@ -28,11 +28,11 @@ async function getDone(user) {
 
 async function getSettings(user) {
     let uid = user.uid;
-    let settings = {isShare: false, showBadges: true};
+    let url = Math.random().toString(36).substr(2, 9);
     await fb.usersCollection.doc(uid).get().then(doc => {
         if (!doc.exists) {
-            fb.usersCollection.doc(uid).set({settings});
-            store.commit("settings/setSettings", settings);
+            fb.usersCollection.doc(uid).set({uid: uid, isShare: false, showBadges: true, url: url});
+            store.commit("settings/setSettings", {isShare: false, showBadges: true, url: url});
         } else {
             store.commit("settings/setSettings", doc.data());
         }

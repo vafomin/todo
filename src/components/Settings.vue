@@ -79,7 +79,7 @@ export default {
     },
     url() {
       if (this.isAuth) {
-        return `${process.env.VUE_APP_DOMAIN}/b/${this.user.uid}`;
+        return `${process.env.VUE_APP_DOMAIN}/b/${this.settings.url}`;
       } else {
         return "no";
       }

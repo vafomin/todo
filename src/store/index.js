@@ -30,7 +30,8 @@ export const store = new Vuex.Store({
     state: {
         lang: undefined,
         user: null,
-        load: false
+        load: false,
+        tkn: ""
     },
     actions: {
         cleanData({commit}) {
@@ -52,6 +53,9 @@ export const store = new Vuex.Store({
         setLoad: (state, payload) => {
             state.load = payload;
         },
+        setTkn: (state, payload) => {
+            state.tkn = payload;
+        }
     },
     modules: {
         app,

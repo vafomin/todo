@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import store from "../store";
 
 const fb = require('../../firebaseConfig');
 
@@ -33,13 +34,21 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     if (to.name === "board") {
-        let id = to.params.id;
-        fb.usersCollection.doc(id).get().then((doc) => {
-            if (!doc.exists || !doc.data().isShare) {
-                next({name: "noAccess"});
-            } else next();
+        let url = to.params.id;
+        fb.usersCollection.where("url", "==", url).orderBy("uid", "desc").onSnapshot(querySnapshot => {
+            querySnapshot.forEach(doc => {
+                let settings = doc.data();
+                if (!settings.isShare) {
+                    next({name: "noAccess"});
+                } else {
+                    store.commit("setTkn", settings.uid);
+                    next();
+                }
+            });
         });
-    } else next()
+    } else {
+        next();
+    }
 });
 
 export default router;
