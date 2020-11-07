@@ -14,7 +14,7 @@
       <v-btn color="error" outlined @click="del" :disabled="disabled">
         <v-icon>mdi-delete</v-icon>
       </v-btn>
-      <v-btn color="primary" outlined @click="dialog = true" :disabled="disabled">
+      <v-btn color="primary" outlined @click="openDialog" :disabled="disabled">
         <v-icon v-if="tag !== ''">mdi-tag-text</v-icon>
         <v-icon v-else>mdi-tag-plus</v-icon>
       </v-btn>
@@ -89,6 +89,10 @@ export default {
       let tag = this.tag;
       let tagColor = this.tagColor;
       this.doneTask({id, task, tag, tagColor}).then(() => this.disabled = false);
+    },
+    openDialog(){
+      this.dialog = true;
+      this.tagName = this.tag;
     },
     newTag() {
       let id = this.id;
