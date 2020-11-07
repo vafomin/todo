@@ -60,6 +60,16 @@ const actions = {
             commit("addDone", {id: uid, task: task, tag: tag, tagColor: tagColor, createdOn: created});
         }
     },
+    async deleteDone({state, commit}, {id}) {
+        if (store.state.user !== null) {
+            await fb.doneCollection.doc(id).delete();
+        } else {
+            const index = state.done.findIndex(n => n.id === id);
+            if (index !== -1) {
+                commit("delDone", index);
+            }
+        }
+    },
     async restoreTask({state, commit}, {id, task, tag, tagColor}) {
         if (store.state.user !== null) {
             const authorId = store.state.user.uid;

@@ -10,7 +10,9 @@
     <v-card-actions>
       <v-btn color="blue lighten-1" outlined @click="restore" :disabled="disabled">
         <v-icon>mdi-restore</v-icon>
-        {{ $t("buttons.restore") }}
+      </v-btn>
+      <v-btn color="error" outlined @click="del" :disabled="disabled">
+        <v-icon>mdi-delete</v-icon>
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -34,8 +36,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions("app", ["restoreTask"]),
-
+    ...mapActions("app", ["deleteDone", "restoreTask"]),
+    del() {
+      let id = this.id;
+      this.deleteDone({id});
+      this.deleteDone({id});
+    },
     restore() {
       this.disabled = true;
       let id = this.id;
