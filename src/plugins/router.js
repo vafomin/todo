@@ -33,6 +33,8 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+    store.commit("settings/setSettingsDialog", false)
+
     if (to.name === "board") {
         let url = to.params.id;
         fb.usersCollection.where("url", "==", url).orderBy("uid", "desc").onSnapshot(querySnapshot => {
