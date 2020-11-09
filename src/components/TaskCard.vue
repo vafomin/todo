@@ -2,7 +2,9 @@
   <v-card class="mx-4 mx-sm-auto my-4">
     <v-card-text>
       <p class="handle headline">
-        <v-chip v-if="tag !== ''" class="ma-2" close :color="tagColor" outlined @click:close="delTag">{{ tag }}</v-chip>
+        <v-chip v-if="tag !== ''" class="ma-2" close :color="tagColor" outlined @click="setTag" @click:close="delTag">
+          {{ tag }}
+        </v-chip>
         {{ task }}
       </p>
       <small>{{ $t("created") }} {{ created | dateTransform }}</small>
@@ -54,8 +56,7 @@
 </template>
 
 <script>
-import {mapActions} from "vuex";
-
+import {mapState, mapMutations, mapActions} from "vuex";
 
 export default {
   name: "TaskCard",
@@ -84,7 +85,11 @@ export default {
       ],
     }
   },
+  computed: {
+    ...mapState(["currentTag"])
+  },
   methods: {
+    ...mapMutations(["setCurrentTag"]),
     ...mapActions("app", ["deleteTask", "doneTask", "updTag"]),
     del() {
       let id = this.id;
@@ -118,6 +123,9 @@ export default {
       let tag = "";
       let tagColor = "#03A9F4"
       this.updTag({id, tag, tagColor});
+    },
+    setTag() {
+      this.setCurrentTag({tag: this.tag, color: this.tagColor});
     }
   }
 }

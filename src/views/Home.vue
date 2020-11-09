@@ -36,13 +36,28 @@
                 </template>
               </v-text-field>
             </v-form>
+            <p v-if="currentTag.tag !== ''" >
+              {{ $t('currentTag') }}
+            <v-chip class="ma-2" close :color="currentTag.color" outlined @click:close="resetCurrentTag">
+              {{ currentTag.tag }}
+            </v-chip>
+            </p>
             <p class="headline text-center" v-if="tasksCount === 0">{{ $t("tabs.noTask") }}</p>
-            <TaskCard v-else v-for="(task, i) in taskList" :key="i" :id="task.id"
+            <TaskCard v-else-if="tasksCount > 0 && currentTag.tag === ''" v-for="(task, i) in taskList" :key="i"
+                      :id="task.id"
                       :task="task.task"
                       :tag="task.tag"
                       :tagColor="task.tagColor"
                       :created="task.createdOn"/>
+            <div v-else v-for="(task, i) in taskList" :key="i">
+              <TaskCard v-if="currentTag.tag === task.tag" :id="task.id"
+                        :task="task.task"
+                        :tag="task.tag"
+                        :tagColor="task.tagColor"
+                        :created="task.createdOn"/>
+            </div>
           </div>
+
         </v-tab-item>
         <v-tab-item>
           <div class="tab-item-wrapper pa-6">
@@ -74,7 +89,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["user", "load"]),
+    ...mapState(["user", "load", "currentTag"]),
     ...mapState("app", ["tasks", "done"]),
     ...mapState("settings", ["settings"]),
     ...mapGetters("app", ["tasksCount", "doneCount"]),
@@ -95,7 +110,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["setUser", "setLoad"]),
+    ...mapMutations(["setUser", "setLoad", "setCurrentTag"]),
     ...mapActions("app", ["addTask"]),
     newTask() {
       if (this.task.trim().length > 0) {
@@ -103,6 +118,9 @@ export default {
         this.addTask({task});
         this.task = "";
       }
+    },
+    resetCurrentTag() {
+      this.setCurrentTag({tag: "", color: "#03A9F4"});
     }
   }
 }

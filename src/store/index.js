@@ -44,7 +44,8 @@ export const store = new Vuex.Store({
         lang: undefined,
         user: null,
         load: false,
-        tkn: ""
+        tkn: "",
+        currentTag: {tag: "", color: "#03A9F4"}
     },
     actions: {
         cleanData({commit}) {
@@ -54,7 +55,7 @@ export const store = new Vuex.Store({
             commit("settings/setSettings", {});
             localStorage.removeItem("vuex");
             localStorage.removeItem("_secure__ls__metadata");
-        },
+        }
     },
     mutations: {
         setLang: (state, payload) => {
@@ -68,6 +69,9 @@ export const store = new Vuex.Store({
         },
         setTkn: (state, payload) => {
             state.tkn = payload;
+        },
+        setCurrentTag: (state, payload) => {
+            state.currentTag = payload;
         }
     },
     modules: {

@@ -9,6 +9,7 @@ export const messages = {
         done: "Выполнено в",
         addTag: "Добавить тег",
         tagName: "Название тега",
+        currentTag: "Вы просматриваете этот тег: ",
         buttons: {
             add: "Добавить",
             home: "На главную",
@@ -48,6 +49,7 @@ export const messages = {
         done: "Done at ",
         addTag: "Add Tag",
         tagName: "Tag Name",
+        currentTag: "You are viewing this tag: ",
         buttons: {
             add: "Add",
             home: "Home",
