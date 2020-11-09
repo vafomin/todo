@@ -63,6 +63,10 @@ export default {
   mounted() {
     const uid = this.tkn;
 
+    if (this.user && this.user.uid === uid) {
+      this.$router.replace("../");
+    }
+
     fb.tasksCollection.where("authorId", "==", uid).orderBy("createdOn", "desc").onSnapshot(querySnapshot => {
       let tasks = [];
       querySnapshot.forEach(doc => {
