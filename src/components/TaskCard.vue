@@ -31,16 +31,16 @@
                 :label="$t('tagName')"
                 solo
             />
-            <v-color-picker
-                width="100%"
-                v-model="myTagColor"
-                mode="hexa"
-                hide-canvas
-                hide-inputs
-                show-swatches
-                :swatches="swatches"
-            />
           </v-form>
+          <v-color-picker
+                  width="100%"
+                  v-model="myTagColor"
+                  mode="hexa"
+                  hide-canvas
+                  hide-inputs
+                  show-swatches
+                  :swatches="swatches"
+          />
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
