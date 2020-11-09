@@ -1,5 +1,9 @@
 <template>
   <div class="v-container pa-4">
+    <div v-if="!isLoading" class="text-center">
+      <v-progress-circular :size="70" indeterminate color="primary"/>
+    </div>
+    <div v-else>
     <v-tabs v-model="tab" grow>
       <v-tabs-slider v-if="tab === 1" color="green"></v-tabs-slider>
       <v-tab>
@@ -18,17 +22,11 @@
     <v-tabs-items v-model="tab">
       <v-tab-item>
         <div class="tab-item-wrapper pa-6">
-          <div v-if="!isLoading" class="text-center">
-            <v-progress-circular :size="70" indeterminate
-                                 color="primary"></v-progress-circular>
-          </div>
-          <div v-else>
             <p class="headline text-center" v-if="tasksBoardCount === 0">{{ $t("tabs.noTask") }}</p>
             <Card v-else v-for="(task, i) in taskList" :key="i" :id="task.id"
                   :task="task.task" :tag="task.tag" :tagColor="task.tagColor"
                   :created="task.createdOn" :tab="tab"/>
           </div>
-        </div>
       </v-tab-item>
       <v-tab-item>
         <div class="tab-item-wrapper pa-6">
@@ -39,6 +37,7 @@
         </div>
       </v-tab-item>
     </v-tabs-items>
+    </div>
   </div>
 </template>
 
