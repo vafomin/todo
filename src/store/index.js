@@ -62,7 +62,7 @@ export const store = new Vuex.Store({
         settings
     },
     plugins: [createPersistedState({
-        paths: ['lang', 'user', 'tasks', 'done', 'settings'],
+        paths: ["lang", "user", "app.tasks", "app.done", "settings.settings"],
         storage: {
             getItem: (key) => ls.get(key),
             setItem: (key, value) => ls.set(key, value),
