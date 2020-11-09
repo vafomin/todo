@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import i18n from '../plugins/i18n'
-import {mapState, mapMutations, mapActions} from 'vuex'
+import i18n from "../plugins/i18n";
+import {mapState, mapMutations, mapActions} from "vuex";
 
 export default {
   name: "Settings",

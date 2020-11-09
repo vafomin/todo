@@ -46,10 +46,10 @@
 </template>
 
 <script>
-import {mapState, mapMutations, mapActions} from 'vuex'
-import firebase from 'firebase/app'
+import {mapState, mapMutations, mapActions} from "vuex";
+import firebase from "firebase/app";
 
-const fb = require('../firebaseConfig.js');
+const fb = require("../firebaseConfig.js");
 
 export default {
   components: {

@@ -43,9 +43,9 @@
 </template>
 
 <script>
-import {mapState, mapMutations, mapGetters} from 'vuex'
+import {mapState, mapMutations, mapGetters} from "vuex";
 
-const fb = require('../../firebaseConfig');
+const fb = require("../../firebaseConfig");
 
 export default {
   name: "Board",

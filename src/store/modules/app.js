@@ -1,6 +1,6 @@
-import store from '../index'
+import store from "../index";
 
-const fb = require('../../../firebaseConfig');
+const fb = require("../../../firebaseConfig");
 const uuid = require("uuid");
 
 const state = {

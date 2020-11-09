@@ -1,14 +1,14 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import createPersistedState from 'vuex-persistedstate'
-import SecureLS from 'secure-ls';
-import fire from '../plugins/fire'
-import settings from './modules/settings'
-import app from './modules/app'
+import Vue from "vue";
+import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
+import SecureLS from "secure-ls";
+import fire from "../plugins/fire";
+import settings from "./modules/settings";
+import app from "./modules/app";
 
 let ls = new SecureLS({isCompression: false});
 
-const fb = require('../../firebaseConfig');
+const fb = require("../../firebaseConfig");
 
 Vue.use(Vuex);
 

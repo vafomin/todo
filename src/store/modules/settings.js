@@ -1,4 +1,4 @@
-const fb = require('../../../firebaseConfig');
+const fb = require("../../../firebaseConfig");
 
 const state = {
     settings: {
