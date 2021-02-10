@@ -34,7 +34,9 @@ export const messages = {
             tooltip: "Кликните, чтобы изменить",
             isShare: "Разрешить доступ к вашей доске?",
             share: "Вы можете поделиться своей доской",
-            showBadges: "Показывать значки?"
+            showBadges: "Показывать значки?",
+            successAlert: "Ссылка успешно скопирована!",
+            errorAlert: "При копировании произошла ошибка!"
         },
         notFound: "Страница не найдена",
         noAccess: "Нет доступа"
@@ -74,7 +76,9 @@ export const messages = {
             tooltip: "Click to change",
             isShare: "Allow access to your board?",
             share: "You can share your board",
-            showBadges: "Show badges?"
+            showBadges: "Show badges?",
+            successAlert: "Link copied successfully!",
+            errorAlert: "An error occurred during copying!"
         },
         notFound: "Page not found",
         noAccess: "No access"

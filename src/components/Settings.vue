@@ -35,7 +35,19 @@
         <div v-if="isAuth">
           <v-switch v-model="isShare" :label="$t('settings.isShare')"></v-switch>
           <div v-if="isShare">
-            <p>{{ $t("settings.share") }}: <a :href="url" target="_blank">{{ url }}</a></p>
+            <p>{{ $t("settings.share") }}: <a :href="url" target="_blank">{{ url }}</a>
+              <v-btn
+                  icon
+                  color="primary"
+                  v-clipboard:copy="url"
+                  v-clipboard:success="clipboardSuccess"
+                  v-clipboard:error="clipboardError">
+                <v-icon>mdi-content-copy</v-icon>
+              </v-btn>
+            </p>
+            <v-alert v-if="alert" dense :type="alert">
+              {{ $t(`settings.${alert}Alert`)}}
+            </v-alert>
           </div>
         </div>
         <v-switch v-model="showBadges" :label="$t('settings.showBadges')"></v-switch>
@@ -109,6 +121,11 @@ export default {
       }
     }
   },
+  data(){
+    return {
+      alert: null,
+    }
+  },
   methods: {
     ...mapMutations("settings", ["setSettingsDialog", "setShowBadges", "setIsShare"]),
     ...mapActions("settings", ["newSettings"]),
@@ -117,11 +134,18 @@ export default {
     change_color() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
       localStorage.setItem("useDarkTheme", this.$vuetify.theme.dark.toString())
-    }
-    ,
+    },
     change_lang(lang) {
       i18n.locale = lang;
       this.$store.commit("setLang", lang);
+    },
+    clipboardSuccess() {
+      this.alert = "success";
+      setTimeout(() => this.alert = null, 3000);
+    },
+    clipboardError() {
+      this.alert = "error";
+      setTimeout(() => this.alert = null, 3000);
     }
   }
 }
