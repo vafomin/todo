@@ -23,7 +23,7 @@
       </v-tabs>
       <v-tabs-items v-model="tab">
         <v-tab-item>
-          <div class="tab-item-wrapper pa-6">
+          <div class="tab-item-wrapper pa-6" :style="getStyle">
             <v-form class="my-4" @submit.prevent="newTask">
               <v-text-field
                   v-model="task"
@@ -60,7 +60,7 @@
 
         </v-tab-item>
         <v-tab-item>
-          <div class="tab-item-wrapper pa-6">
+          <div class="tab-item-wrapper pa-6" :style="getStyle">
             <p class="headline text-center" v-if="doneCount === 0">{{ $t("tabs.noDone") }}</p>
             <DoneCard v-else v-for="(task, i) in doneList" :key="i" :id="task.id"
                       :task="task.task"
@@ -85,7 +85,7 @@ export default {
   data() {
     return {
       tab: null,
-      task: ""
+      task: "",
     }
   },
   computed: {
@@ -107,7 +107,11 @@ export default {
     },
     showBadges() {
       return this.settings.showBadges;
+    },
+    getStyle() {
+      return this.$vuetify.theme.dark ? "background: #121212" : "";
     }
+
   },
   methods: {
     ...mapMutations(["setUser", "setLoad", "setCurrentTag"]),
