@@ -6,7 +6,7 @@
     </div>
     <p v-if="!isAuth" class="headline text-center">{{ $t("start") }}</p>
     <div v-if="isLoading">
-      <v-tabs v-model="tab" grow>
+      <v-tabs v-model="tab" grow :background-color="this.$vuetify.theme.dark ? '#121212' : ''">
         <v-tabs-slider v-if="tab === 1" color="green"></v-tabs-slider>
         <v-tab>
           <v-badge v-if="showBadges && tasksCount > 0" :content="tasksCount">
