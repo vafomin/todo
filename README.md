@@ -2,6 +2,8 @@
 
 ToDo list on Vue.js and Vuex
 
+### Live demo: [todo.enotcode.com](https://todo.enotcode.com/)
+
 ![screenshot](.github/screen.png)
 
 ## Used
